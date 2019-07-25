@@ -1,0 +1,20 @@
+.kyp-card .card{ 
+    background-color: rgb(0, 80, 123);
+    color: white;
+    border: rgb(0, 80, 123);
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+.kyp-mid, .kyp-mid h3 {
+    background-color: #f47b20;
+    color: white;
+    font-weight: bolder;
+}
+
+.kyp-mid h3 {
+    display: inline-table;
+}
+
+.kyp-mid h1, .kyp-right h1, .kyp-left h1,h3 {
+    color: white;
+}

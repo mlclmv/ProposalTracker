@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="col-md-12 text-center">
+      <h3> KYP CARDS </h3> 
+      <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </div>
+  </div>
+  <div class="container kyp-card">
+    <div class="col-md-12 card-group">
+      <div class="col-md-4 card">
+        <div class="col-md-12 card-body text-center text-middle kyp-left">
+          <table class="h-100">
+            <tbody>
+              <tr>
+                <td class="align-middle">
+                  <h3>
+                    A PROPOSAL FOR XYZ  IS SHARED WITH ABC
+                  </h3>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4 card">
+        <div class="col-md-12 card-body text-center kyp-mid">
+          <table class="h-100 w-100">
+              <tbody>
+                <tr>
+                  <td class="align-middle text-center">
+                    <h3>
+                      KYP CARD
+                    <br>
+                      X/XXX
+                    </h3>     
+                  </td>
+                </tr>
+              </tbody>
+            </table>     
+        </div>
+      </div>
+      <div class="col-md-2 card text-center kyp-right">
+        <img class="h-100 img-fluid" src="{% static 'site/img/logo-big.png' %}"/>
+      </div>
+      <div class="col-md-2 card text-center kyp-right">
+        <img class="h-100 img-fluid" src="{% static 'site/img/logo-big.png' %}"/>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'site/js/site.js' %}"></script>
+{% endblock scripts %}
