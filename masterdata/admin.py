@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import CauseArea,Industry,OrganizationType,ProposalStage,Service,Workflow,EngagementType,Department,Question,PartnershipLevel
+from .models import (CauseArea,Industry,OrganizationType,ProposalStage,
+Service,Workflow,EngagementType,Department,Question,PartnershipLevel,RiskLevel)
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
@@ -35,6 +36,9 @@ class QuestionAdmin(ImportExportModelAdmin):
 class PartnerLevelAdmin(ImportExportModelAdmin):
     list_display = ("id","name","description")
 
+class RiskLevelAdmin(ImportExportModelAdmin):
+    list_display = ("id","name","description")
+
 admin.site.register(CauseArea,CauseAreaAdmin)
 admin.site.register(Industry,IndustryAdmin)
 admin.site.register(OrganizationType,OrgTypeAdmin)
@@ -45,3 +49,4 @@ admin.site.register(EngagementType,EngageTypeAdmin)
 admin.site.register(Department,DeptAdmin)
 admin.site.register(Question,QuestionAdmin)
 admin.site.register(PartnershipLevel,PartnerLevelAdmin)
+admin.site.register(RiskLevel,RiskLevelAdmin)

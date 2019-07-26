@@ -107,3 +107,13 @@ class PartnershipLevel(models.Model):
 
     def __str__(self):
         return self.name or ''
+
+class RiskLevel(models.Model):
+    name = models.CharField(unique=True,max_length=200)
+    description = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name or ''
+
+    def __str__(self):
+        return self.name or ''

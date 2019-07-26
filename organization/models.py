@@ -4,7 +4,7 @@ import uuid,time
 from django import forms
 from django.db import models
 from django.conf import settings
-from masterdata.models import Industry,OrganizationType,CauseArea,EngagementType,Question,PartnershipLevel
+from masterdata.models import Industry,OrganizationType,CauseArea,EngagementType,Question,PartnershipLevel,RiskLevel
 from cities_light.models import City,Region
 from slugify import slugify
 
@@ -37,6 +37,7 @@ class Profile(models.Model):
     spoc_position = models.CharField(help_text="Position of SPOC",max_length=200,blank=True,null=True)
     spoc_email = models.EmailField(help_text="Email of SPOC",max_length=70,blank=True,null=True)
     mkt_position = models.TextField(help_text="Market positioning", blank=True, null=True)
+    risk_level = models.OneToOneField(RiskLevel, on_delete=models.PROTECT,blank=True,null=True,related_name="risk_level")
     risks= models.TextField(help_text="Risks associated (Reputation/ Default etc.)Risks associated (Reputation/ Default etc.)", blank=True, null=True)
 
     def __unicode__(self):

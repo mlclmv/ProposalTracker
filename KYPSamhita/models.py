@@ -21,12 +21,12 @@ class Proposal(models.Model):
 
 class ProposalDoc(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
-    name = models.CharField(unique=True,max_length=200,blank=True, null=True)
+    name = models.CharField(max_length=200,blank=True, null=True)
     date = models.DateField("Date/Month of Doc/Report",default=datetime.date.today)
     proposal = models.ForeignKey(Proposal,on_delete=models.PROTECT,related_name="doc_proposal",blank=True, null=True)
     workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,related_name="doc_workflow",blank=True, null=True,default=1)
     stage = models.ForeignKey(ProposalStage,on_delete=models.PROTECT,related_name="doc_stage",blank=True, null=True)
-    doc = models.FileField(help_text ="Upload file", upload_to="proposal_docs/%Y-%m/", null=True, blank=True)
+    doc = models.FileField(unique=True,help_text ="Upload file", upload_to="proposal_docs/%Y-%m/", null=True, blank=True)
 
 
     def __unicode__(self):
