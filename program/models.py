@@ -4,7 +4,7 @@ from django.conf import settings
 from masterdata.models import CauseArea
 from organization.models import Profile
 
-class ProgramDetail(models.Model):
+class ProgramInfo(models.Model):
     name = models.CharField(unique=True,max_length=200)
     description = models.TextField(blank=True, null=True)
     cause_area = models.ManyToManyField(CauseArea, help_text='Cause Area', blank=True)
