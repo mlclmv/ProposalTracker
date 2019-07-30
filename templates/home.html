@@ -2,55 +2,92 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+
 {% block container %}
-  <div class="container-fluid">
+  {% comment %} Buttons bar {% endcomment %}
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-12 col-md-6 p-3 p-md-5">
+        <div class="col-12 p-0 px-md-5">
+          <button type="button" class="col-12 btn btn-default">Home</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 p-3 p-md-5">
+        <div class="col-12 p-0 px-md-5">
+          <button type="button" class="col-12 btn btn-default">Share this KYP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} Card Header {% endcomment %}
+  <div class="col-md-12">
+    <div class="row mx-5">
+      <h1 class="col-12 text-uppercase text-center">PARTNER NAME</h1>
+    </div>
+    <div class="row col-12 mx-0 mx-md-5 mt-0 mt-md-5">
+      <div class="row col-12 col-md-4">
+        <div class="col-4">
+          <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
+        </div>
+        <div class="col-8 p-0 pt-md-5">
+          <div class="col-12">
+            <h4>Partnership Level</h4>
+          </div>
+          <div class="col-12">
+            <h1>Gold Partner</h1>
+          </div>   
+        </div>
+      </div>
+      <div class="row col-12 col-md-4">
+        <div class="col-4">
+          <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
+        </div>
+        <div class="col-8 p-0 pt-md-5">
+          <div class="col-12">
+            <h4>Risk Assessment</h4>
+          </div>
+          <div class="col-12">
+            <h1>Neutral</h1>
+          </div>   
+        </div>
+      </div>
+      <div class="row col-12 col-md-4">
+        <div class="col-4">
+          <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
+        </div>
+        <div class="col-8 p-0 pt-md-5">
+          <div class="col-12">
+            <h4>Services Offered/Pitched</h4>
+          </div>
+          <div class="col-12">
+            <h1>PMU, Strategy</h1>
+          </div>   
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} Card Progress  {% endcomment %}
+  <div class="col-md-12">
+    <div class="row p-5">
+      <div class="col-12 col-md-12 p-3 p-md-5">
+        <div class="progress w-100" style="height: 2.4rem;">
+          <div class="progress-bar start-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-default" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar end-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+  {% comment %} 
     <div class="col-md-12 text-center">
-      <h3> KYP CARDS </h3> 
       <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
     </div>
-  </div>
-  <div class="container kyp-card">
-    <div class="col-md-12 card-group">
-      <div class="col-md-4 card">
-        <div class="col-md-12 card-body text-center text-middle kyp-left">
-          <table class="h-100">
-            <tbody>
-              <tr>
-                <td class="align-middle">
-                  <h3>
-                    A PROPOSAL FOR XYZ  IS SHARED WITH ABC
-                  </h3>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-4 card">
-        <div class="col-md-12 card-body text-center kyp-mid">
-          <table class="h-100 w-100">
-              <tbody>
-                <tr>
-                  <td class="align-middle text-center">
-                    <h3>
-                      KYP CARD
-                    <br>
-                      X/XXX
-                    </h3>     
-                  </td>
-                </tr>
-              </tbody>
-            </table>     
-        </div>
-      </div>
-      <div class="col-md-2 card text-center kyp-right">
-        <img class="h-100 img-fluid" src="{% static 'site/img/logo-big.png' %}"/>
-      </div>
-      <div class="col-md-2 card text-center kyp-right">
-        <img class="h-100 img-fluid" src="{% static 'site/img/logo-big.png' %}"/>
-      </div>
-    </div>
-  </div>
+  {% endcomment %}
 {% endblock %}
 
 {% block scripts %}

@@ -1,20 +1,65 @@
-.kyp-card .card{ 
-    background-color: rgb(0, 80, 123);
-    color: white;
-    border: rgb(0, 80, 123);
-    font-family: Verdana, Geneva, Tahoma, sans-serif
+@font-face {
+    font-family: GilroyLight;
+    src: url("{% static 'site/font/Gilroy/Gilroy-Light.otf' %}") format("opentype");
 }
 
-.kyp-mid, .kyp-mid h3 {
-    background-color: #f47b20;
-    color: white;
-    font-weight: bolder;
+@font-face {
+    font-family: GilroyMedium;
+    src: url("{% static 'site/font/Gilroy/Gilroy-Medium.otf' %}") format("opentype");
 }
 
-.kyp-mid h3 {
-    display: inline-table;
+@font-face {
+    font-family: GilroyRegular;
+    src: url("{% static 'site/font/Gilroy/Gilroy-Regular.otf' %}") format("opentype");
 }
 
-.kyp-mid h1, .kyp-right h1, .kyp-left h1,h3 {
-    color: white;
+body {
+    color: #707070;
+    font-size: 1rem;
+    font-family: GilroyRegular,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.primary-color {
+    background-color: #ff6666;
+}
+
+.font-primary {
+    color: #707070;
+}
+
+.font-white {
+    color: #ffffff;
+}
+
+.font-color-inactive {
+    color: #707070;
+    opacity: 0.5;
+}
+
+.btn-default {
+    color: #707070;
+    border-color: #707070;
+    border-radius: 2rem;
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.img-contain {
+    max-height: 125px; 
+    object-fit: contain;
+}
+
+.start-bar {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.end-bar {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.bg-default {
+    border: 1px solid rgba(112,112,112,1);
+    background-color: white;
 }
