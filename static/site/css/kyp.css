@@ -49,9 +49,24 @@ body {
     object-fit: contain;
 }
 
+.bg-status {
+    background-color: #ffffff;
+}
+
+.bg-default {
+    border: 1px solid rgba(112,112,112,1);
+    background-color: rgba(0, 0, 0, 0);
+    border-left: 0px;
+}
+
+.bg-fin {
+    background-color: #ff6666;
+}
+
 .start-bar {
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
+    border-left: 1px solid rgba(112,112,112,1);
 }
 
 .end-bar {
@@ -59,7 +74,15 @@ body {
     border-bottom-right-radius: 2rem;
 }
 
-.bg-default {
-    border: 1px solid rgba(112,112,112,1);
-    background-color: white;
+.default-card {
+    border: 1px solid #707070;
+    border-radius: 2rem;
+}
+
+.text-highlight {
+    border-bottom: 3px solid #ff6666;
+}
+
+.card-split-right {
+    border-right: 1px solid #707070;
 }
