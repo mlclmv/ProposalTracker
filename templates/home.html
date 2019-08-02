@@ -5,24 +5,11 @@
 
 {% block container %}
   {% comment %} Buttons bar {% endcomment %}
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-12 col-md-6 p-3 p-md-5">
-        <div class="col-12 p-0 px-md-5">
-          <button type="button" class="col-12 btn btn-default">Home</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 p-3 p-md-5">
-        <div class="col-12 p-0 px-md-5">
-          <button type="button" class="col-12 btn btn-default">Share this KYP</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include "_header-buttons.html" %}
   {% comment %} Card Header {% endcomment %}
   <div class="col-md-12">
     <div class="row mx-5">
-      <h1 class="col-12 text-uppercase text-center">PARTNER NAME</h1>
+      <h1 class="col-12 text-uppercase text-center">{{org}}</h1>
     </div>
     <div class="row col-12 mx-0 mx-md-5 mt-0 mt-md-5">
       <div class="row col-12 col-md-4">
@@ -34,7 +21,7 @@
             <h4>Partnership Level</h4>
           </div>
           <div class="col-12">
-            <h1>Gold Partner</h1>
+            <h1>{{partner_level}}</h1>
           </div>   
         </div>
       </div>
@@ -47,7 +34,7 @@
             <h4>Risk Assessment</h4>
           </div>
           <div class="col-12">
-            <h1>Neutral</h1>
+            <h1>{{risk_level}}</h1>
           </div>   
         </div>
       </div>
@@ -60,7 +47,17 @@
             <h4>Services Offered/Pitched</h4>
           </div>
           <div class="col-12">
-            <h1>PMU, Strategy</h1>
+            <h3>
+            {% for service in services_off %}
+            {% if forloop.last %}
+              {{service}}
+            {% else %}
+              {{service}},
+            {% endif %}
+            {% empty %}
+              No Services Engaged
+            {% endfor %}
+            </h3>
           </div>   
         </div>
       </div>
@@ -87,7 +84,17 @@
     <div class="row px-5">
       <div class="col-12 col-md-12 px-3 px-md-5">
         <span>
-          Brief about the Partner. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+          <b>Proposal Description</b>
+          <br/>
+          {{proposal.description}}
+          <br/>
+          <b>Market Position</b>
+          <br/>
+          {{org.mkt_position}}
+          <br/>
+          <b>Risks</b>
+          <br/>
+          {{org.risks}}
         </span>
       </div>
     </div>
@@ -100,28 +107,109 @@
           <div class="row col-12 col-md-12">
             <div class="col-12 col-md-5 px-1 px-md-1">
               <div class="card-split-right h-100">
-                <span class="h1 pb-1 text-highlight">KYP Details</span>
+                <span class="h1 pb-0 pb-md-1 text-highlight">KYP Details</span>
                 <div class="mt-3 card-details">
-                  <p>Entity Name: ZXCV Pvt. Ltd.</p>
-                  <p>Vision: Qwerty Vision</p>
-                  <p>CEO/MD: Qwerty name</p>
-                  <p>Industry: Aviation</p>
-                  <p>Location: Delhi, Mumbai</p>
+                  <p>Entity Name: {{org.name}}</p>
+                  <p>Vision: {{org.vision}}</p>
+                  <p>{{org.head_position}}: {{org.head_name}}</p>
+                  <p>Industry: 
+                    {% for industry in org.industry.all %}
+                    {% if forloop.last %}
+                      {{industry}}
+                    {% else %}
+                      {{industry}},
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>Office Location(s):  
+                    {% for location in org.office_location.all %}
+                    {% if forloop.first %}
+                      {{location}}
+                    {% else %}
+                      | {{location}}
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>Financial Statements:
+                    <div class="row mx-0">
+                      <a href="{{org.statements.url}}"><button type="button" class="col-md-12 py-3 btn btn-other">Download</button></a>
+                    </div>
+                  </p>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-7 px-1 px-md-0">
               <div class="pl-0 pl-md-3">
-                <span class="h1 pb-1 text-highlight">CSR Priorities</span>
+                <span class="h1 pb-0 pb-md-1 text-highlight">CSR Priorities</span>
                 <div class="mt-3 card-details">
-                  <p>Budget (est): INR 1,00,00,000</p>
-                  <p>Location: Palghar, Pune, Vashi</p>
-                  <p>Focus Cause Area: WASH, Education, Livelihood</p>
-                  <p>NGO Partners: NGO1, NGO2, NGO3</p>
-                  <p>Previous Programs: Program 1 Details</p>
-                  <p>Partner POC: XYC Name</p>
-                  <p>POC Designation: CSR head</p>
-                  <p>Internal POC: Sarva Damini</p>
+                  <p>Budget (est): <span id="budget"></span>
+                  </p>
+                  <p>Location:
+                    {% comment %} For States {% endcomment %}
+                    {% for location in org.location_state.all %}
+                    {% if forloop.first %}
+                      {{location}}
+                    {% else %}
+                      | {{location}}
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                    {% comment %} For cities {% endcomment %}
+                    {% for location in org.location_city.all %}
+                      | {{location}}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>Focus Cause Area: 
+                    {% for area in org.cause_area.all %}
+                    {% if forloop.last %}
+                      {{area}}
+                    {% else %}
+                      {{area}},
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>NGO Partners: 
+                    {% if org.main_partner %}
+                      {{org.main_partner}},
+                    {% endif %}
+                    {% for partner in org.cause_area.all %}
+                    {% if forloop.last %}
+                      {{partner}}
+                    {% else %}
+                      {{partner}},
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>Previous Programs: 
+                    <br/>
+                    {% for program in programs.all %}
+                    {% if forloop.last %}
+                      {{program}}
+                      <br/>
+                      <i><small>{{program.description}}</small></i>
+                    {% else %}
+                      {{program}},
+                      <br/>
+                      <i><small>{{program.description}}</small></i>
+                    {% endif %}
+                    {% empty %}
+                      N/A
+                    {% endfor %}
+                  </p>
+                  <p>Partner POC: {{org.spoc_name}}</p>
+                  <p>POC Designation: {{org.spoc_position}}</p>
+                  <p>Internal POC: {{proposal.spoc}}</p>
                 </div>
               </div>
             </div>
@@ -139,50 +227,50 @@
             <div class="col-12 col-md-12 px-1 px-md-1">
               <div class="row h-100">
                   <div class="col-12">
-                    <span class="h1 pb-1 text-highlight">Prechecks prior to Engagement</span>
+                    <span class="h1 pb-0 pb-md-0 text-highlight">Prechecks prior to Engagement</span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-md-6">
                     <div class="row mt-3 card-checks">
-                      <span class="col-12 h1 pb-1">Strategy</span>
+                      <span class="col-12 h2 pb-1">Strategy</span>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
                       </div>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
                       </div>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-12 col-md-6">
                     <div class="row mt-3 card-checks">
-                      <span class="col-12 h1 pb-1">Structure</span>
+                      <span class="col-12 h2 pb-1 ">Structure</span>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
                       </div>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
                       </div>
                       <div class="col-10 mb-5">
                         <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
                       </div>
-                      <div class="col-2 mb-5">
+                      <div class="col-2 mb-5 px-0 px-md-4">
                         <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
                       </div>
                     </div>
@@ -194,6 +282,59 @@
       </div>
     </div>
   </div>
+  {% comment %} Components of Good Governance {% endcomment %}
+  <div class="col-md-12 pt-5">
+    <div class="row px-5">
+      <div class="col-12 col-md-12 px-3 px-md-5">
+        <div class="col-12 col-md-12 default-card pr-md-3 pr-0 py-3">
+          <div class="row col-12 col-md-12 pr-md-3 pr-0">
+            <div class="col-12 col-md-12 px-1 px-md-1">
+              <div class="row h-100">
+                  <div class="col-12">
+                    <span class="h1 pb-0 pb-md-1 text-highlight">Components of Good Governance</span>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="row mt-3 card-checks card-split-right">
+                      <span class="col-12 h3 pb-1">01- Purpose, structure and membership</span>
+                      <div class="col-12 col-md-6 mb-5 card-split-right">
+                        <span class="h5 pb-1">Objectives</span>
+                          <ul class="custom-bullet">
+                            <li>Aims, objectives, outputs and outcomes are agreed and communicated</li>
+                          </ul>
+                      </div>
+                      <div class="col-12 col-md-6 mb-5">
+                        <span class="h5 pb-1">Good Practices</span>
+                          <ul class="custom-bullet">
+                            <li>Aims, objectives, outputs and outcomes are agreed and communicated</li>
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="row px-3 p-md-5 pt-md-4 pt-0 card-checks">
+                      <div class="row col-12">
+                        <div class="col-12">
+                          <span>Mou</span>
+                        </div>
+                        <div class="col-4 px-3 px-md-5">
+                          <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
+                        </div>
+                        <div class="col-8 p-md-5 p-4 align-content-center">
+                          <button type="button" class="col-md-12 btn btn-other">Download Mou</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Buttons bar {% endcomment %}
+  {% include "_header-buttons.html" %}
 
   {% comment %} 
     <div class="col-md-12 text-center">
@@ -202,6 +343,12 @@
   {% endcomment %}
 {% endblock %}
 
+
 {% block scripts %}
+<script src="{% static 'site/css/numeral-js/min/numeral.min.js' %}"></script>
+<script type="text/javascript">
+  var csr_budget = numeral({{org.csr_budget}}).format('0,0[.]00');
+  document.getElementById("budget").innerHTML = "INR "+csr_budget;
+</script>
 <script src="{% static 'site/js/site.js' %}"></script>
 {% endblock scripts %}

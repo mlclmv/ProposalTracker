@@ -5,6 +5,7 @@ from django.urls import include, path
 from django.conf.urls import *
 import profiles.urls
 import accounts.urls
+import KYPSamhita.urls
 from . import views
 admin.autodiscover()
 # Personalized admin site settings like title and header
@@ -17,6 +18,7 @@ urlpatterns = [
     path("users/", include(profiles.urls)),
     path("admin/", admin.site.urls),
     path("", include(accounts.urls)),
+    path("",include(KYPSamhita.urls)),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^select2/', include('django_select2.urls')),
 ]

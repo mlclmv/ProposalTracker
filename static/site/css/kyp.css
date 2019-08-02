@@ -44,6 +44,13 @@ body {
     opacity: 0.9;
 }
 
+.btn-other {
+    background-color: #ff6666;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
 .img-contain {
     max-height: 125px; 
     object-fit: contain;
@@ -85,4 +92,30 @@ body {
 
 .card-split-right {
     border-right: 1px solid #707070;
+}
+
+@media only screen and (max-width: 768px) {
+    .card-split-right {
+      border: 0px;
+    }
+}
+       
+.custom-bullet {
+    padding-left: 1.5rem;
+}
+
+.custom-bullet li {
+    display: block;
+}
+
+.custom-bullet li:before
+{
+    content: "\e036";
+    font-family: 'Icons';
+    font-size: 9px;
+    float: left;
+    margin-top: 4px;
+    margin-left: -17px;
+    color: #707070;
+    opacity: 0.5;
 }

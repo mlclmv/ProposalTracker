@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.conf import settings
+from django.template.defaultfilters import slugify
 from masterdata.models import ProposalStage, Service, Workflow
 from organization.models import Profile
 
@@ -12,12 +13,27 @@ class Proposal(models.Model):
     service = models.ManyToManyField(Service,blank=True,help_text="Service Engaged")
     imp_partner =  models.ManyToManyField(Profile, blank=True,related_name="imp_partner",help_text="Pick Implementation Partner")
     spoc = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT, blank=True, null=True,help_text="Proposal Handler")
+    slug = models.SlugField(unique=True,null=True,blank=True)
 
     def __unicode__(self):
         return self.name or ''
 
     def __str__(self):
         return self.name or ''
+
+    def _get_unique_slug(self):
+        slug = slugify(self.name)
+        unique_slug = slug
+        num = 1
+        while Proposal.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+ 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
 
 class ProposalDoc(models.Model):
     modified_date = models.DateTimeField(auto_now=True)

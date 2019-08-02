@@ -56,10 +56,10 @@ class StrategyChecklist(models.Model):
     q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
     def __str__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
 class StructureChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
@@ -71,10 +71,10 @@ class StructureChecklist(models.Model):
     q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
     def __str__(self):
-        return self.organization or ''
+        return self.organization.name or ''
         
 class ProcessPracticeChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
@@ -86,10 +86,10 @@ class ProcessPracticeChecklist(models.Model):
     q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
     def __str__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
 class PeopleChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
@@ -101,7 +101,7 @@ class PeopleChecklist(models.Model):
     q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
-        return self.organization or ''
+        return self.organization.name or ''
 
     def __str__(self):
-        return self.organization or ''
+        return self.organization.name or ''
