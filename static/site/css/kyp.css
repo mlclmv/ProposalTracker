@@ -51,6 +51,14 @@ body {
     font-size: 1rem;
 }
 
+.btn-disable {
+    background-color: white;
+    color: #707070;
+    border-color: #707070;
+    font-size: 1rem;
+    opacity: 0.5;
+}
+
 .img-contain {
     max-height: 125px; 
     object-fit: contain;
@@ -93,12 +101,6 @@ body {
 .card-split-right {
     border-right: 1px solid #707070;
 }
-
-@media only screen and (max-width: 768px) {
-    .card-split-right {
-      border: 0px;
-    }
-}
        
 .custom-bullet {
     padding-left: 1.5rem;
@@ -112,10 +114,45 @@ body {
 {
     content: "\e036";
     font-family: 'Icons';
-    font-size: 9px;
+    font-size: 0.75rem;
     float: left;
-    margin-top: 4px;
+    margin-top: 0.15rem;
     margin-left: -17px;
     color: #707070;
     opacity: 0.5;
+}
+
+.progress   {
+    font-size: 0.9rem;
+}
+
+.progress a {
+    color: white;
+}
+
+.progress a:hover {
+    color: #707070;
+    opacity: 0.5;
+}
+
+.btn-share {
+    max-height: 3rem;
+}
+
+.img-mh {
+    max-height: 10rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .card-split-right {
+      border: 0px;
+    }
+
+    .progress   {
+        font-size: 0.5rem;
+    }
+
+    .img-mh {
+        max-height: 3rem;
+    }
 }

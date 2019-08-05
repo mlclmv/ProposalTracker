@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 from django.conf import settings
+from django.dispatch import Signal, receiver
+from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from masterdata.models import ProposalStage, Service, Workflow
 from organization.models import Profile
@@ -35,6 +37,19 @@ class Proposal(models.Model):
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
 
+# Signal to create Proposal document on Proposal creation
+@receiver(post_save, sender=Proposal)
+def proposal_doc_creation(sender, **kwargs):
+    proposal_obj = kwargs['instance']
+    try:
+        stage,created = ProposalStage.objects.get_or_create(name="Proposal sent/received",workflow__id=2,order=1,recurring=False)
+        def_workflow = Workflow.objects.get(pk=1)
+        def_stage = ProposalStage.objects.filter(workflow=def_workflow,order=1).first()
+        proposal_doc,created = ProposalDoc.objects.get_or_create(name="Proposal Document",proposal=proposal_obj,workflow__id=2,stage=stage)
+        mou_doc,created = ProposalDoc.objects.get_or_create(name="MoU signed",proposal=proposal_obj,stage=def_stage,workflow=def_workflow)
+    except Exception as e:
+        print ("<ProposalDocCreationError>",e)
+
 class ProposalDoc(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200,blank=True, null=True)
@@ -42,7 +57,7 @@ class ProposalDoc(models.Model):
     proposal = models.ForeignKey(Proposal,on_delete=models.PROTECT,related_name="doc_proposal",blank=True, null=True)
     workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,related_name="doc_workflow",blank=True, null=True,default=1)
     stage = models.ForeignKey(ProposalStage,on_delete=models.PROTECT,related_name="doc_stage",blank=True, null=True)
-    doc = models.FileField(unique=True,help_text ="Upload file", upload_to="proposal_docs/%Y-%m/", null=True, blank=True)
+    doc = models.FileField(help_text ="Upload file", upload_to="proposal_docs/%Y-%m/", null=True, blank=True)
 
 
     def __unicode__(self):

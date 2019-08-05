@@ -67,14 +67,42 @@
   <div class="col-md-12">
     <div class="row p-5">
       <div class="col-12 col-md-12 px-3 px-md-5 pt-3 pt-md-5">
-        <div class="progress bg-status w-100" style="height: 2.4rem;">
-          <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
-          <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal sent/received<a href ="https://speed.hetzner.de/100MB.bin">Download</a></div>
-          <div class="progress-bar bg-default" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU Signed</div>
-          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
-          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-          <div class="progress-bar bg-default" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-          <div class="progress-bar bg-default end-bar" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+        <div class="progress bg-status w-100" style="height: 3rem;">
+          {% if kyp_comp == 100 %}
+            <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
+          {% else %}
+            <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
+          {% endif %}
+          {% if prop_sent %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{prop_file.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
+          {% endif %}
+          {% if mou_signed %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{mou_file.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
+          {% endif %}
+          {% if projstart %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
+          {% endif %}
+          {% if projreport %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+          {% endif %}
+          {% if impactreport %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+          {% endif %}
+          {% if finreview %}
+            <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+          {% else %}
+            <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+          {% endif %}
         </div> 
       </div>
     </div>
@@ -84,17 +112,23 @@
     <div class="row px-5">
       <div class="col-12 col-md-12 px-3 px-md-5">
         <span>
+          {% if proposal.description %}
           <b>Proposal Description</b>
           <br/>
           {{proposal.description}}
           <br/>
+          {% endif %}
+          {% if org.mkt_position %}
           <b>Market Position</b>
           <br/>
           {{org.mkt_position}}
           <br/>
+          {% endif %}
+          {% if org.risks %}
           <b>Risks</b>
           <br/>
           {{org.risks}}
+          {% endif %}
         </span>
       </div>
     </div>
@@ -110,35 +144,45 @@
                 <span class="h1 pb-0 pb-md-1 text-highlight">KYP Details</span>
                 <div class="mt-3 card-details">
                   <p>Entity Name: {{org.name}}</p>
-                  <p>Vision: {{org.vision}}</p>
-                  <p>{{org.head_position}}: {{org.head_name}}</p>
-                  <p>Industry: 
-                    {% for industry in org.industry.all %}
-                    {% if forloop.last %}
-                      {{industry}}
-                    {% else %}
-                      {{industry}},
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>Office Location(s):  
-                    {% for location in org.office_location.all %}
-                    {% if forloop.first %}
-                      {{location}}
-                    {% else %}
-                      | {{location}}
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>Financial Statements:
-                    <div class="row mx-0">
-                      <a href="{{org.statements.url}}"><button type="button" class="col-md-12 py-3 btn btn-other">Download</button></a>
-                    </div>
-                  </p>
+                  {% if org.vision %}
+                    <p>Vision: {{org.vision}}</p>
+                  {% endif %}
+                  {% if org.head_position and org.head_name %}
+                    <p>{{org.head_position}}: {{org.head_name}}</p>
+                  {% endif %}
+                  {% if org.industry.all %}
+                    <p>Industry: 
+                      {% for industry in org.industry.all %}
+                      {% if forloop.last %}
+                        {{industry}}
+                      {% else %}
+                        {{industry}},
+                      {% endif %}
+                      {% empty %}
+                        N/A
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if org.office_location.all %}
+                    <p>Office Location(s):  
+                      {% for location in org.office_location.all %}
+                      {% if forloop.first %}
+                        {{location}}
+                      {% else %}
+                        | {{location}}
+                      {% endif %}
+                      {% empty %}
+                        N/A
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if org.statements %}
+                    <p>Financial Statements:
+                      <div class="row mx-0">
+                        <a href="{{org.statements.url}}"><button type="button" class="col-md-12 py-3 btn btn-other">Download</button></a>
+                      </div>
+                    </p>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -146,70 +190,86 @@
               <div class="pl-0 pl-md-3">
                 <span class="h1 pb-0 pb-md-1 text-highlight">CSR Priorities</span>
                 <div class="mt-3 card-details">
-                  <p>Budget (est): <span id="budget"></span>
-                  </p>
-                  <p>Location:
-                    {% comment %} For States {% endcomment %}
-                    {% for location in org.location_state.all %}
-                    {% if forloop.first %}
-                      {{location}}
-                    {% else %}
-                      | {{location}}
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                    {% comment %} For cities {% endcomment %}
-                    {% for location in org.location_city.all %}
-                      | {{location}}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>Focus Cause Area: 
-                    {% for area in org.cause_area.all %}
-                    {% if forloop.last %}
-                      {{area}}
-                    {% else %}
-                      {{area}},
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>NGO Partners: 
-                    {% if org.main_partner %}
-                      {{org.main_partner}},
-                    {% endif %}
-                    {% for partner in org.cause_area.all %}
-                    {% if forloop.last %}
-                      {{partner}}
-                    {% else %}
-                      {{partner}},
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>Previous Programs: 
-                    <br/>
-                    {% for program in programs.all %}
-                    {% if forloop.last %}
-                      {{program}}
+                  {% if org.csr_budget %}
+                    <p>Budget (est): 
+                      <span id="budget"></span>
+                    </p>
+                  {% endif %}
+                  {% if org.location_state.all or org.location_city.all  %}
+                    <p>Location:
+                      {% comment %} For States {% endcomment %}
+                      {% for location in org.location_state.all %}
+                      {% if forloop.first %}
+                        {{location}}
+                      {% else %}
+                        | {{location}}
+                      {% endif %}
+                      {% empty %}
+                      {% endfor %}
+                      {% comment %} For cities {% endcomment %}
+                      {% for location in org.location_city.all %}
+                        | {{location}}
+                      {% empty %}
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if org.cause_area.all %}
+                    <p>Focus Cause Area: 
+                      {% for area in org.cause_area.all %}
+                      {% if forloop.last %}
+                        {{area}}
+                      {% else %}
+                        {{area}},
+                      {% endif %}
+                      {% empty %}
+                        N/A
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if org.cause_area.all or org.main_partner %}
+                    <p>NGO Partners: 
+                      {% if org.main_partner %}
+                        {{org.main_partner}},
+                      {% endif %}
+                      {% for partner in org.cause_area.all %}
+                      {% if forloop.last %}
+                        {{partner}}
+                      {% else %}
+                        {{partner}},
+                      {% endif %}
+                      {% empty %}
+                        N/A
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if programs.all %}
+                    <p>Previous Programs: 
                       <br/>
-                      <i><small>{{program.description}}</small></i>
-                    {% else %}
-                      {{program}},
-                      <br/>
-                      <i><small>{{program.description}}</small></i>
-                    {% endif %}
-                    {% empty %}
-                      N/A
-                    {% endfor %}
-                  </p>
-                  <p>Partner POC: {{org.spoc_name}}</p>
-                  <p>POC Designation: {{org.spoc_position}}</p>
-                  <p>Internal POC: {{proposal.spoc}}</p>
+                      {% for program in programs.all %}
+                      {% if forloop.last %}
+                        {{program}}
+                        <br/>
+                        <i><small>{{program.description}}</small></i>
+                      {% else %}
+                        {{program}}
+                        <br/>
+                        <i><small>{{program.description}}</small></i>
+                        <br/>
+                      {% endif %}
+                      {% empty %}
+                        N/A
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  {% if org.spoc_name %}
+                    <p>Partner POC: {{org.spoc_name}}</p>
+                  {% endif %}
+                  {% if org.spoc_position %}
+                    <p>POC Designation: {{org.spoc_position}}</p>
+                  {% endif %}
+                  {% if proposal.spoc %}
+                    <p>Internal POC: {{proposal.spoc}}</p>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -229,52 +289,154 @@
                   <div class="col-12">
                     <span class="h1 pb-0 pb-md-0 text-highlight">Prechecks prior to Engagement</span>
                   </div>
+                  {% comment %} Strategy Checks {% endcomment %}
                   <div class="col-12 col-md-6">
                     <div class="row mt-3 card-checks">
                       <span class="col-12 h2 pb-1">Strategy</span>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_strategy.0}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
+                        {% if a_strategy.q1 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}
                       </div>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_strategy.1}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
+                        {% if a_strategy.q2 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
                       </div>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_strategy.2}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
+                        {% if a_strategy.q3 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
+                  {% comment %} Strategy Checks end {% endcomment %}
+                  {% comment %} Structure Checks {% endcomment %}
                   <div class="col-12 col-md-6">
                     <div class="row mt-3 card-checks">
                       <span class="col-12 h2 pb-1 ">Structure</span>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_structure.0}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
+                        {% if a_structure.q1 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %} 
                       </div>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_structure.1}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>  
+                        {% if a_structure.q2 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
                       </div>
                       <div class="col-10 mb-5">
-                        <p>Does the partnership align to our organizational mission, vision, objective & goals?</p>
+                        <p>{{q_structure.2}}</p>
                       </div>
                       <div class="col-2 mb-5 px-0 px-md-4">
-                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
+                        {% if a_structure.q3 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
                       </div>
                     </div>
                   </div>
+                  {% comment %} Structure Checks end {% endcomment %}
+                  {% comment %} Process and Practice Checks {% endcomment %}
+                  <div class="col-12 col-md-6">
+                    <div class="row mt-3 card-checks">
+                      <span class="col-12 h2 pb-1 ">Process and Practice</span>
+                      <div class="col-10 mb-5">
+                        <p>{{q_process.0}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_process.q1 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %} 
+                      </div>
+                      <div class="col-10 mb-5">
+                        <p>{{q_process.1}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_process.q2 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
+                      </div>
+                      <div class="col-10 mb-5">
+                        <p>{{q_process.2}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_process.q3 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
+                      </div>
+                    </div>
+                  </div>
+                  {% comment %} Process and Practice Checks end {% endcomment %}
+                  {% comment %} People Checks {% endcomment %}
+                  <div class="col-12 col-md-6">
+                    <div class="row mt-3 card-checks">
+                      <span class="col-12 h2 pb-1 ">People</span>
+                      <div class="col-10 mb-5">
+                        <p>{{q_people.0}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_people.q1 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %} 
+                      </div>
+                      <div class="col-10 mb-5">
+                        <p>{{q_people.1}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_people.q2 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
+                      </div>
+                      <div class="col-10 mb-5">
+                        <p>{{q_people.2}}</p>
+                      </div>
+                      <div class="col-2 mb-5 px-0 px-md-4">
+                        {% if a_people.q3 %}
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                        {% else %} 
+                        <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                        {% endif %}  
+                      </div>
+                    </div>
+                  </div>
+                  {% comment %} People Checks end {% endcomment %}
               </div>
             </div>
             </div>
@@ -293,38 +455,57 @@
                   <div class="col-12">
                     <span class="h1 pb-0 pb-md-1 text-highlight">Components of Good Governance</span>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div class="row mt-3 card-checks card-split-right">
-                      <span class="col-12 h3 pb-1">01- Purpose, structure and membership</span>
-                      <div class="col-12 col-md-6 mb-5 card-split-right">
-                        <span class="h5 pb-1">Objectives</span>
-                          <ul class="custom-bullet">
-                            <li>Aims, objectives, outputs and outcomes are agreed and communicated</li>
-                          </ul>
-                      </div>
-                      <div class="col-12 col-md-6 mb-5">
-                        <span class="h5 pb-1">Good Practices</span>
-                          <ul class="custom-bullet">
-                            <li>Aims, objectives, outputs and outcomes are agreed and communicated</li>
-                          </ul>
+                  {% for stage in proposal_stages %}
+                    <div class="col-12 col-md-6 card-split-right">
+                      <div class="row mt-3 card-checks">
+                        <span class="col-12 h3 pb-1">{{stage.name}}</span>
+                        <div class="col-12 col-md-6 mb-5 card-split-right">
+                          <span class="h5 pb-1">Objectives</span>
+                            <ul class="custom-bullet font-color-inactive "> 
+                              {{stage.objective | safe}}
+                            </ul>
+                        </div>
+                        <div class="col-12 col-md-6 mb-5">
+                          <span class="h5 pb-1">Good Practices</span>
+                            <ul class="custom-bullet font-color-inactive ">
+                              {{stage.good_practice | safe}}
+                            </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
                   <div class="col-12 col-md-6">
                     <div class="row px-3 p-md-5 pt-md-4 pt-0 card-checks">
-                      <div class="row col-12">
-                        <div class="col-12">
-                          <span>Mou</span>
-                        </div>
-                        <div class="col-4 px-3 px-md-5">
-                          <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>  
-                        </div>
-                        <div class="col-8 p-md-5 p-4 align-content-center">
-                          <button type="button" class="col-md-12 btn btn-other">Download Mou</button>
-                        </div>
-                      </div>
+                      {% for file in proposal_docs %}
+                        {% if file.stage == stage %}
+                          <div class="row col-12">
+                            <div class="col-12">
+                              <span>{{file.name}}</span>
+                            </div>
+                            <div class="col-4 p-3 p-md-5">
+                              {% if file.doc %}
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/yes.png' %}"/>
+                              {% else %}
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/no.png' %}"/>
+                              {% endif %} 
+                            </div>
+                            <div class="col-8 p-md-5 p-4 align-content-center">
+                              {% if file.doc %} 
+                                <a href="{{file.doc.url}}">
+                                  <button type="button" class="col-md-12 btn btn-other">Download {{file.name}}</button>
+                                </a>
+                                <p class="font-color-inactive text-center"><small>Last modified:{{file.modified_date}}</small></p>
+                              {% else %} 
+                                <a href="#">
+                                  <button type="button" class="col-md-12 btn btn-disable">File not uploaded</button>
+                                </a>
+                              {% endif %} 
+                            </div>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
                     </div>
                   </div>
+                  {% endfor %}
               </div>
             </div>
             </div>

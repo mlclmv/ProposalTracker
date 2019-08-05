@@ -4,7 +4,7 @@ from program.models import ProgramInfo
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
-class StrategyInlineAdmin(admin.TabularInline):
+class StrategyInlineAdmin(admin.StackedInline):
     model = StrategyChecklist
     fields = ("qt1","q1","qt2","q2","qt3","q3")
     readonly_fields = ("qt1","qt2","qt3")

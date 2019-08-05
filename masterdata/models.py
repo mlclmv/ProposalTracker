@@ -42,7 +42,7 @@ class Workflow(models.Model):
 
 class ProposalStage(models.Model):
     name = models.CharField(max_length=200)
-    workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,blank=True,null=True,related_name="stages")
+    workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,blank=True,null=True,related_name="stages",default=1)
     order = models.PositiveSmallIntegerField(blank=True, null=True)
     objective = models.TextField("Objectives",blank=True, null=True)
     good_practice = models.TextField("Good Practices",blank=True, null=True)
@@ -54,7 +54,10 @@ class ProposalStage(models.Model):
         return self.name or ''
 
     def __str__(self):
-        return str(self.order)+'.'+self.name+'('+self.workflow.name+')' or ''
+        try:
+            return str(self.order)+'.'+self.name+'('+self.workflow.name+')' or ''
+        except:
+            return self.name
 
 class Service(models.Model):
     name = models.CharField(unique=True,max_length=200)

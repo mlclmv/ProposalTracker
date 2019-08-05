@@ -1,4 +1,6 @@
 
+{% load staticfiles %}
+
   <div class="col-md-12">
     <div class="row">
       <div class="col-12 col-md-6 p-3 p-md-5">
@@ -8,7 +10,16 @@
       </div>
       <div class="col-12 col-md-6 p-3 p-md-5">
         <div class="col-12 p-0 px-md-5">
-          <button type="button" class="col-12 btn btn-default">Share this KYP</button>
+          <button type="button" class="col-12 btn btn-default">
+            <span class="col-2">Share</span>
+            <a class="col-5 h-100" href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">
+              <img class="img-fluid img-contain btn-share h-100" src="{% static 'site/img/whatsapp.png' %}"/>
+            </a>
+            <a class="col-5 h-100" href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+            title="Share by Email">
+              <img class="img-fluid img-contain btn-share h-100" src="{% static 'site/img/gmail.png' %}"/>
+            </a>
+          </button>
         </div>
       </div>
     </div>

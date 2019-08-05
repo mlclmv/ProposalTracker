@@ -49,11 +49,11 @@ class Profile(models.Model):
 class StrategyChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
     qt1 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq1",default=1,verbose_name="Q")
-    q1 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q1 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt2 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq2",default=2,verbose_name="Q")
-    q2 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q2 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt3 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq3",default=3,verbose_name="Q")
-    q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q3 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
         return self.organization.name or ''
@@ -64,11 +64,11 @@ class StrategyChecklist(models.Model):
 class StructureChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
     qt1 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq4",default=4,verbose_name="Q")
-    q1 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q1 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt2 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq5",default=5,verbose_name="Q")
-    q2 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q2 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt3 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq6",default=6,verbose_name="Q")
-    q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q3 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
         return self.organization.name or ''
@@ -79,11 +79,11 @@ class StructureChecklist(models.Model):
 class ProcessPracticeChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
     qt1 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq7",default=7,verbose_name="Q")
-    q1 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q1 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt2 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq8",default=8,verbose_name="Q")
-    q2 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q2 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt3 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq9",default=9,verbose_name="Q")
-    q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q3 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
         return self.organization.name or ''
@@ -94,11 +94,11 @@ class ProcessPracticeChecklist(models.Model):
 class PeopleChecklist(models.Model):
     organization = models.ForeignKey(Profile,"Organization")
     qt1 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq10",default=10,verbose_name="Q")
-    q1 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q1 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt2 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq11",default=11,verbose_name="Q")
-    q2 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q2 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
     qt3 = models.OneToOneField(Question,on_delete=models.PROTECT,related_name="scq12",default=12,verbose_name="Q")
-    q3 = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
+    q3 = models.NullBooleanField(choices=settings.BOOL_CHOICES,verbose_name="A")
 
     def __unicode__(self):
         return self.organization.name or ''
