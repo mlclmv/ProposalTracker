@@ -145,7 +145,11 @@
                 <div class="mt-3 card-details">
                   <p>Entity Name: {{org.name}}</p>
                   {% if org.vision %}
-                    <p>Vision: {{org.vision}}</p>
+                    <p>
+                      Vision and Mission: 
+                      <br/>
+                      {{org.vision|safe}}
+                    </p>
                   {% endif %}
                   {% if org.head_position and org.head_name %}
                     <p>{{org.head_position}}: {{org.head_name}}</p>

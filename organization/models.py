@@ -26,7 +26,7 @@ class Profile(models.Model):
     location_city = models.ManyToManyField(City,help_text="Cities with geographical presence",blank=True,related_name="org_city",verbose_name="CSR Activity - Cities")
     csr_budget = models.PositiveIntegerField(blank=True, null=True)
     statements = models.FileField(help_text ="Financial Statements - Last 3 years", upload_to=get_upload_to, null=True, blank=True)
-    partner_level = models.OneToOneField(PartnershipLevel, on_delete=models.PROTECT,blank=True,null=True,related_name="partner_level")
+    partner_level = models.ForeignKey(PartnershipLevel, on_delete=models.PROTECT,blank=True,null=True,related_name="partner_level")
     engagement_type = models.ManyToManyField(EngagementType, help_text='Type of engagement', blank=True)
     main_partner = models.ForeignKey('self', on_delete=models.PROTECT, help_text='Exclusive partner if any ', blank=True, null=True)
     partners = models.ManyToManyField('self', help_text='Other Partners', blank=True)
