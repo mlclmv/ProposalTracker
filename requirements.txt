@@ -10,7 +10,7 @@ chardet==2.3.0
 checkbox-support==0.22
 #click==0.4.43+16.4.20170613.0ubuntu1
 #command-not-found==0.3
-cryptography==1.2.3
+#cryptography==1.2.3
 #defer==1.0.6
 defusedxml==0.6.0
 #devscripts===2.16.2ubuntu3
