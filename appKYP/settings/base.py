@@ -12,6 +12,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / "directory"
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+STATIC_TMP = [str(BASE_DIR /'statictmp')]
 STATICFILES_DIRS = [str(BASE_DIR / "static")]
 MEDIA_ROOT = str(BASE_DIR / "media")
 MEDIA_URL = "/media/"
