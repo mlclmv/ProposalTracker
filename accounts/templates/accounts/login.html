@@ -9,6 +9,9 @@
 {% block form %}
   {% crispy form %}
 
+  <div class="col-md-12 text-center">
+    <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+  </div>
   <div class="form-message">
     <p>
       Don't have an account? <a href="{% url 'accounts:signup' %}">Sign up</a>.
