@@ -2,3 +2,8 @@
 **/migrations
 **/__pycache__
 db.sqlite3
+
+### Django ###
+*.log
+*.pot
+*.pyc
