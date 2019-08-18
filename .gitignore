@@ -11,3 +11,4 @@ db.sqlite3
 **/static/django_select2
 **/static/admin
 **/static/debug_toolbar
+media/**
