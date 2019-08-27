@@ -128,3 +128,6 @@ def ProposalPage(request,proposal_slug):
     except Exception as e:
         print ('<KYPcompError>',e)
     return render(request,'../templates/home.html',locals())
+
+def ListingPage(request):
+    return render(request,'../templates/listing.html',locals())

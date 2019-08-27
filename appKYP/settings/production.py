@@ -77,3 +77,6 @@ LOGGING = {
 }
 
 logging.config.dictConfig(LOGGING)
+STATIC_ROOT = str(BASE_DIR.parent / "site" / "static")
+STATIC_ROOT = str(BASE_DIR.parent / "static" /"site" / "static")
+ALLOWED_HOSTS = ["malcolm11.pythonanywhere.com","127.0.0.1","localhost"]
