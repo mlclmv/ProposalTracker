@@ -175,11 +175,13 @@
                         <div class="row p-5">
                         <div class="col-12 col-md-12 px-3 px-md-0 pt-3 pt-md-0">
                             <div class="progress bg-status w-100" style="height: 3rem;">
-                            {% for k,v in kyp_comp_total.items %}
-                                {% if kyp_comp == 100 %}
-                                    <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
-                                {% else %}
-                                    <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
+                            {% for k,v in kyp_comp.items %}
+                                {% if k == prop.id %}
+                                    {% if v == 100 %}
+                                        <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                             {% if prop_sent %}

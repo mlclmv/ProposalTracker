@@ -132,14 +132,13 @@ def ProposalPage(request,proposal_slug):
 
 def ListingPage(request):
     proposal_list = Proposal.objects.filter(id__in=['1','11'])
-    proposal_dict = list(proposal_list.value("id"))
+    proposal_dict = list(proposal_list.values("id"))
     proposal = {}
     org = {}
     partner_level = {}
     risk_level = {}
     services_off = {}
-    kyp_comp = 0
-    kyp_comp_total = {}
+    kyp_comp = {}
     prop_file = {}
     prop_sent = {}
     mou_file = {}
@@ -252,16 +251,17 @@ def ListingPage(request):
             print ('<PeopleQuestionError>',e)
         # Check KYP completion
         try:
+            kyp_comp[i.id] = 0
             if (a_strategy and a_strategy.q1 != None and a_strategy.q2 != None and a_strategy.q3 != None):
-                kyp_comp += 25
+                kyp_comp[i.id] += 25
             if (a_structure and a_structure.q1 != None and a_structure.q2 != None and a_structure.q3 != None):
-                kyp_comp += 25
+                kyp_comp[i.id] += 25
             if (a_process and a_process.q1 != None and a_process.q2 != None and a_process.q3 != None):
-                kyp_comp += 25
+                kyp_comp[i.id] += 25
             if (a_people and a_people.q1 != None and a_people.q2 != None and a_people.q3 != None):
-                kyp_comp += 25
-            kyp_comp_total[i.id] = kyp_comp
+                kyp_comp[i.id] += 25
         except Exception as e:
-            kyp_comp_total[i.id] = 0
+            kyp_comp[i.id] = 0
             print ('<KYPcompError>',e)
+        print ("comp",kyp_comp)
     return render(request,'../templates/listing.html',locals())
