@@ -8,9 +8,11 @@ from django.urls import reverse_lazy
 from . import models
 from KYPSamhita.models import Proposal,ProposalDoc
 from program.models import ProgramInfo
-from masterdata.models import Question,ProposalStage
+from masterdata.models import *
 from organization.models import StrategyChecklist,StructureChecklist,ProcessPracticeChecklist,PeopleChecklist
 from django.http import JsonResponse
+from cities_light.models import City
+from django.contrib.auth import get_user_model
 
 def ProposalPage(request,proposal_slug):
     proposal = ""
@@ -131,31 +133,38 @@ def ProposalPage(request,proposal_slug):
     return render(request,'../templates/home.html',locals())
 
 def ListingPage(request):
+    User = get_user_model()
     proposal_list = Proposal.objects.filter(id__in=['1','11'])
     proposal_dict = list(proposal_list.values("id"))
     proposal = {}
+    prop_details = {}
     org = {}
     partner_level = {}
     risk_level = {}
     services_off = {}
     kyp_comp = {}
     prop_file = {}
-    prop_sent = {}
     mou_file = {}
-    mou_signed = {}
     projstart_file = {}
-    projstart = {}
     projreport_file = {}
-    projreport = {}
     impactreport_file = {}
-    impactreport = {}
     finreview_file = {}
-    finreview = {}
-    print ("Prop",proposal_dict)
+    m_partner_level = PartnershipLevel.objects.all()
+    m_city = City.objects.all()
+    m_industry = Industry.objects.all()
+    m_risk = RiskLevel.objects.all()
+    m_service = Service.objects.all()
+    m_type = EngagementType.objects.all()
+    m_cause = CauseArea.objects.all()
+    m_poc = User.objects.all()
+    m_status = ProposalStage.objects.all()
+    m_budget = [{"id":1,"name":"0-10L"},{"id":2,"name":"10L-50L"},{"id":3,"name":"50L-1CR"},{"id":4,"name":"1CR-10CR"},{"id":5,"name":"10CR and above"}]
     for i in proposal_list:
         try:
             proposal = Proposal.objects.filter(id=i.id).first()
             if proposal != None:
+                prop_details[i.id] = proposal
+                print ("prop_d",prop_details)
                 try:
                     org[i.id] = proposal.organization
                     print(org[i.id])
@@ -176,51 +185,27 @@ def ListingPage(request):
                 except Exception as e:
                     print ('<ServiceOffError>: ',e)
                 try:
-                    prop_file[i.id] = ProposalDoc.objects.get(stage__name="Proposal sent/received",proposal=proposal)
-                    if prop_file[i.id].doc:
-                        prop_sent[i.id] = True
-                    else:
-                        prop_sent[i.id] = False
+                    prop_file[i.id] = ProposalDoc.objects.filter(stage__name="Proposal sent/received",proposal=proposal).order_by("-modified_date").first()
                 except Exception as e:
                     print ('<PropSentError>: ',e)
                 try:
-                    mou_file[i.id] = ProposalDoc.objects.filter(name__icontains="mou",workflow__name="Good Governance",proposal=proposal).order_by("date","modified_date").first()
-                    if mou_file[i.id].doc:
-                        mou_signed[i.id] = True
-                    else:
-                        mou_signed[i.id] = False
+                    mou_file[i.id] = ProposalDoc.objects.filter(name__icontains="mou",workflow__name="Good Governance",proposal=proposal).order_by("-date","-modified_date").first()
                 except Exception as e:
                     print ('<PropDocError>: ',e)
                 try:
                     projstart_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="mom")|Q(name__icontains="minutes")), workflow__name="Good Governance",proposal=proposal).first()
-                    if projstart_file[i.id] and projstart_file[i.id].doc:
-                        projstart[i.id] = True
-                    else:
-                        projstart[i.id] = False
                 except Exception as e:
                     print ('<ProjStartError>: ',e)
                 try:
                     projreport_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="monthly")|Q(name__icontains="quarterly")|Q(name__icontains="report")|Q(name__icontains="reports")), workflow__name="Good Governance",stage__order=2,proposal=proposal).first()
-                    if projreport_file[i.id] and projreport_file[i.id].doc:
-                        projreport[i.id] = True
-                    else:
-                        projreport[i.id] = False
                 except Exception as e:
                     print ('<ProjReportError>: ',e)
                 try:
                     impactreport_file[i.id] = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=3,proposal=proposal).first()
-                    if impactreport_file[i.id] and impactreport_file[i.id].doc:
-                        impactreport[i.id] = True
-                    else:
-                        impactreport[i.id] = False
                 except Exception as e:
                     print ('<ImpactReportError>: ',e)
                 try:
                     finreview_file[i.id] = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=4,proposal=proposal).first()
-                    if finreview_file[i.id] and finreview_file[i.id].doc:
-                        finreview[i.id] = True
-                    else:
-                        finreview[i.id] = False
                 except Exception as e:
                     print ('<FinReportError>: ',e)
         except:

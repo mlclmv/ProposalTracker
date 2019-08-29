@@ -180,6 +180,7 @@ body {
     border: 1px solid #707070;
     border-radius: 2rem;
     padding: 1rem 0rem;
+    min-width: 50px;
 }
 .bs-searchbox > input {
     border-width: 1px solid #707070;

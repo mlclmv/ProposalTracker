@@ -18,34 +18,45 @@
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Level</option>
-                    <option>Platinum</option>
+                <select id="level" multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_partner_level %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Location</option>
+                <select id="headquarter" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_city %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Industry</option>
+                <select id="industry" multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_industry %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Risk</option>
+                <select id="risk" multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_risk %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Offering</option>
+                <select id="service" multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_service %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Type</option>
+                <select id="engagement" multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_type %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -54,24 +65,31 @@
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Budget" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Budget</option>
-                    <option>Platinum</option>
+                <select id="budget" multiple title="Budget" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_budget %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Location</option>
+                <select id="location" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_city %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Cause Area</option>
+                <select id="cause" multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_cause %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>POC</option>
+                <select id="poc" multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_poc %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -80,9 +98,10 @@
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    <option>Status</option>
-                    <option>Platinum</option>
+                <select id="status" multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                    {% for key in m_status %}
+                        <option value={{key.id}}>{{key.name}}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -97,7 +116,6 @@
         <div class="row p-5">
             <div class="col-12 col-md-12 py-3 default-card">
                     {% comment %} Card Header Start{% endcomment %}
-                    {{ prop.id}}
                     <div class="col-md-12">
                         <div class="row mx-5">
                             {% for k,v in org.items %}
@@ -184,36 +202,60 @@
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
-                            {% if prop_sent %}
-                                <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{prop_file.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
-                            {% else %}
-                                <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
-                            {% endif %}
-                            {% if mou_signed %}
-                                <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{mou_file.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
-                            {% else %}
-                                <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
-                            {% endif %}
-                            {% if projstart %}
-                                <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
-                            {% else %}
-                                <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
-                            {% endif %}
-                            {% if projreport %}
-                                <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-                            {% else %}
-                                <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-                            {% endif %}
-                            {% if impactreport %}
-                                <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-                            {% else %}
-                                <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-                            {% endif %}
-                            {% if finreview %}
-                                <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-                            {% else %}
-                                <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-                            {% endif %}
+                            {% for k,v in prop_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v.doc %}
+                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in mou_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v.doc %}
+                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in projstart_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v and v.doc %}
+                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in projreport_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v and v.doc %}
+                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in impactreport_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v and v.doc %}
+                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in finreview_file.items %}
+                                {% if k == prop.id %}
+                                    {% if v.doc %}
+                                        <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+                                    {% else %}
+                                        <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
                             </div> 
                         </div>
                         </div>
@@ -223,24 +265,31 @@
                         <div class="row px-5">
                         <div class="col-12 col-md-12 px-3 px-md-0">
                             <span>
-                            {% if proposal.description %}
-                            <b>Proposal Description</b>
-                            <br/>
-                            Proposal
-                            {{proposal.description}}
-                            <br/>
-                            {% endif %}
-                            {% if org.mkt_position %}
-                            <b>Market Position</b>
-                            <br/>
-                            {{org.mkt_position}}
-                            <br/>
-                            {% endif %}
-                            {% if org.risks %}
-                            <b>Risks</b>
-                            <br/>
-                            {{org.risks}}
-                            {% endif %}
+                            {% for k,v in prop_details.items %}
+                                {% if k == prop.id %}
+                                    {% if v.description %}
+                                    <b>Proposal Description</b>
+                                    <br/>
+                                    {{v.description}}
+                                    <br/>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% for k,v in org.items %}
+                                {% if k == prop.id %}
+                                    {% if v.mkt_position %}
+                                    <b>Market Position</b>
+                                    <br/>
+                                    {{v.mkt_position}}
+                                    <br/>
+                                    {% endif %}
+                                    {% if v.risks %}
+                                    <b>Risks</b>
+                                    <br/>
+                                    {{v.risks}}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
                             </span>
                         </div>
                         </div>
