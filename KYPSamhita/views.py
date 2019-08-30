@@ -133,9 +133,36 @@ def ProposalPage(request,proposal_slug):
     return render(request,'../templates/home.html',locals())
 
 def ListingPage(request):
+    # Get POST data and initialize variables
+    form_data = {'partnerSearch':[], 'csrfmiddlewaretoken': []}
+    search_text = ""
+    get_filter = dict()
+    try:
+        for key, values in request.POST.lists():
+            form_data[key] = values
+        print ("<FormData>", form_data)
+        try:
+            get_filter['organization__partner_level__id__in'] = [int(i) for i in form_data['level']]
+            print ("level", get_filter)
+        except Exception as e:
+            print ("<FormDataException>", e)
+    except Exception as e:
+        print ("<POSTDataException>", e)
+    try:
+        search_text = request.POST.get("partnerSearch","")
+    except Exception as e:
+        print ("<SearchTextException>", e)
+    # Initialize other variables
     User = get_user_model()
-    proposal_list = Proposal.objects.filter(id__in=['1','11'])
+    proposal_list = Proposal.objects.filter(Q(name__icontains=search_text) | Q(organization__name__icontains=search_text) | Q(organization__org_type__name__icontains=search_text)\
+                                            | Q(description__icontains=search_text) | Q(imp_partner__name__icontains=search_text)\
+                                            | Q(spoc__name__icontains=search_text) | Q(service__name__icontains=search_text)\
+                                            | Q(organization__cause_area__name__icontains=search_text) | Q(organization__partner_level__name__icontains=search_text)\
+                                            | Q(organization__engagement_type__name__icontains=search_text) | Q(organization__head_name__icontains=search_text)\
+                                            | Q(organization__location_state__name__icontains=search_text) | Q(organization__location_city__search_names__icontains=search_text)\
+                                            | Q(organization__industry__name__icontains=search_text),**get_filter).distinct()
     proposal_dict = list(proposal_list.values("id"))
+    print ("dict",proposal_dict)
     proposal = {}
     prop_details = {}
     org = {}
@@ -159,21 +186,19 @@ def ListingPage(request):
     m_poc = User.objects.all()
     m_status = ProposalStage.objects.all()
     m_budget = [{"id":1,"name":"0-10L"},{"id":2,"name":"10L-50L"},{"id":3,"name":"50L-1CR"},{"id":4,"name":"1CR-10CR"},{"id":5,"name":"10CR and above"}]
+    # Get all data for list page
     for i in proposal_list:
         try:
             proposal = Proposal.objects.filter(id=i.id).first()
             if proposal != None:
                 prop_details[i.id] = proposal
-                print ("prop_d",prop_details)
                 try:
                     org[i.id] = proposal.organization
-                    print(org[i.id])
                     if org[i.id]:
                         try:
                             partner_level[i.id] = org[i.id].partner_level
                         except Exception as e:
                             partner_level[i.id] = "Level not set"
-                        print ('partnerlevel',partner_level)
                         try:
                             risk_level[i.id] = org[i.id].risk_level
                         except:
@@ -248,5 +273,4 @@ def ListingPage(request):
         except Exception as e:
             kyp_comp[i.id] = 0
             print ('<KYPcompError>',e)
-        print ("comp",kyp_comp)
     return render(request,'../templates/listing.html',locals())

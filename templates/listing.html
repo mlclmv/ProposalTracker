@@ -5,55 +5,55 @@
 
 {% block container %}
     {% comment %} Search and Filter Start {% endcomment %}
-    <div class="row py-3 px-5">
+    <div class="py-3 px-5">
+        <form id="filterForm" class="row" action="" method="POST">
+        {% csrf_token %}
         <div class="col-12">
-            <form>
-                <div class="form-groupmb-4">
-                    <input id="partnerSearch" type="text" placeholder="Search for your partners here" class="form-control form-control-underlined font-color-inactive p-2">
-                </div>
-            </form>
+            <div class="form-group mb-4">
+                <input id="partnerSearch" name="partnerSearch" type="text" placeholder="Search for your partners here" class="form-control form-control-underlined font-color-inactive p-2"  {% if search_text %} value="{{search_text}} "{% endif %}>
+            </div>
         </div>
         <div class="col-12 py-3">
             <span class="h3 pb-0 pb-md-1 text-highlight">Partner</span>
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select id="level" multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="level" name="level" multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_partner_level %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="headquarter" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="headquarter" name="headquarter" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_city %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="industry" multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="industry" name="industry" multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_industry %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="risk" multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="risk" name="risk" multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_risk %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="service" multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="service" name="service" multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_service %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="engagement" multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="engagement" name="engagement" multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_type %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
@@ -65,28 +65,28 @@
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select id="budget" multiple title="Budget" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="budget" name="budget" multiple title="Budget" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_budget %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="location" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="location" name="location" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_city %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="cause" multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="cause" name="cause" multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_cause %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-6 col-md-2 py-3">
-                <select id="poc" multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="poc" name="poc" multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_poc %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
@@ -98,7 +98,7 @@
         </div>
         <div class="row col-12 py-3">
             <div class="col-6 col-md-2 py-3">
-                <select id="status" multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                <select id="status" name="status" multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
                     {% for key in m_status %}
                         <option value={{key.id}}>{{key.name}}</option>
                     {% endfor %}
@@ -106,8 +106,9 @@
             </div>
         </div>
         <div class="col-12 py-3">
-          <button type="button" class="col-12 btn btn-default">Apply Filter</button>
+            <input type="submit" class="col-12 btn btn-default" value="Apply Filter" />
         </div>
+        </form>
     </div>
     {% comment %} Search and Filter End {% endcomment %}
     {% comment %} Card Start {% endcomment %}
@@ -308,6 +309,44 @@
             $('.selectpicker').attr({"data-live-search":"true","data-actions-box":"true","data-deselect-all-text":"NONE","data-select-all-text":"ALL"})
             $('.selectpicker').selectpicker();
         });
+        try {
+            {% if form_data.level %}
+                $('#level').val({{form_data.level|safe}})
+            {% endif %}
+            {% if form_data.headquarter %}
+                $('#headquarter').val({{form_data.headquarter|safe}})
+            {% endif %}
+            {% if form_data.industry %}
+                $('#industry').val({{form_data.industry|safe}})
+            {% endif %}
+            {% if form_data.risk %}
+                $('#risk').val({{form_data.risk|safe}})
+            {% endif %}
+            {% if form_data.service %}
+                $('#service').val({{form_data.service|safe}})
+            {% endif %}
+            {% if form_data.engagement %}
+                $('#engagement').val({{form_data.engagement|safe}})
+            {% endif %}
+            {% if form_data.budget %}
+                $('#budget').val({{form_data.budget|safe}})
+            {% endif %}
+            {% if form_data.location %}
+                $('#location').val({{form_data.location|safe}})
+            {% endif %}
+            {% if form_data.cause %}
+                $('#cause').val({{form_data.cause|safe}})
+            {% endif %}
+            {% if form_data.poc %}
+                $('#poc').val({{form_data.poc|safe}})
+            {% endif %}
+            {% if form_data.status %}
+                $('#status').val({{form_data.status|safe}})
+            {% endif %}
+        }
+        catch(e){
+            console.log('Formdata error',e)
+        }
     </script>
     <script src="{% static 'site/js/site.js' %}"></script>
 {% endblock scripts %}
