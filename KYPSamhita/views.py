@@ -9,7 +9,7 @@ from . import models
 from KYPSamhita.models import Proposal,ProposalDoc
 from program.models import ProgramInfo
 from masterdata.models import *
-from organization.models import StrategyChecklist,StructureChecklist,ProcessPracticeChecklist,PeopleChecklist
+from organization.models import Profile,StrategyChecklist,StructureChecklist,ProcessPracticeChecklist,PeopleChecklist
 from django.http import JsonResponse
 from cities_light.models import City
 from django.contrib.auth import get_user_model
@@ -139,28 +139,77 @@ def ListingPage(request):
     get_filter = dict()
     try:
         for key, values in request.POST.lists():
-            form_data[key] = values
+            try:
+                form_data[key] = [int(i) for i in values]
+            except:
+                form_data[key] = values
         print ("<FormData>", form_data)
         try:
-            get_filter['organization__partner_level__id__in'] = [int(i) for i in form_data['level']]
-            print ("level", get_filter)
+            get_filter['organization__partner_level__id__in'] = form_data['level']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__office_location__id__in'] = form_data['headquarter']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__industry__id__in'] = form_data['industry']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__risk_level__id__in'] = form_data['risk']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['service__id__in'] = form_data['service']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__engagement_type__id__in'] = form_data['engagement']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__location_city__id__in'] = form_data['location']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['organization__cause_area__id__in'] = form_data['cause']
+        except Exception as e:
+            print ("<FormDataException>", e)
+        try:
+            get_filter['spoc__id__in'] = form_data['spoc']
         except Exception as e:
             print ("<FormDataException>", e)
     except Exception as e:
         print ("<POSTDataException>", e)
     try:
-        search_text = request.POST.get("partnerSearch","")
+        search_text = request.POST.get("partnerSearch","").strip()
     except Exception as e:
         print ("<SearchTextException>", e)
+    try:
+        status_id = ProposalDoc.objects.filter(stage__id__in=form_data['status']).values_list('proposal__id',flat=True).distinct()
+        get_filter['id__in'] = list(status_id)
+    except Exception as e:
+        print ("<StatusException>", e)
+    try:
+        budget_min = int(request.POST.get("budget_min",""))
+        get_filter['organization__csr_budget__gte'] = budget_min
+    except Exception as e:
+        print ("<BudgetMinException>", e)
+    try:
+        budget_max = int(request.POST.get("budget_max",""))
+        get_filter['organization__csr_budget__lte'] = budget_max
+    except Exception as e:
+        print ("<BudgetMaxException>", e)
     # Initialize other variables
     User = get_user_model()
-    proposal_list = Proposal.objects.filter(Q(name__icontains=search_text) | Q(organization__name__icontains=search_text) | Q(organization__org_type__name__icontains=search_text)\
+    proposal_list = Proposal.objects.filter((Q(name__icontains=search_text) | Q(organization__name__icontains=search_text) | Q(organization__org_type__name__icontains=search_text)\
                                             | Q(description__icontains=search_text) | Q(imp_partner__name__icontains=search_text)\
                                             | Q(spoc__name__icontains=search_text) | Q(service__name__icontains=search_text)\
                                             | Q(organization__cause_area__name__icontains=search_text) | Q(organization__partner_level__name__icontains=search_text)\
                                             | Q(organization__engagement_type__name__icontains=search_text) | Q(organization__head_name__icontains=search_text)\
                                             | Q(organization__location_state__name__icontains=search_text) | Q(organization__location_city__search_names__icontains=search_text)\
-                                            | Q(organization__industry__name__icontains=search_text),**get_filter).distinct()
+                                            | Q(organization__industry__name__icontains=search_text)),**get_filter).distinct()
     proposal_dict = list(proposal_list.values("id"))
     print ("dict",proposal_dict)
     proposal = {}
@@ -185,7 +234,7 @@ def ListingPage(request):
     m_cause = CauseArea.objects.all()
     m_poc = User.objects.all()
     m_status = ProposalStage.objects.all()
-    m_budget = [{"id":1,"name":"0-10L"},{"id":2,"name":"10L-50L"},{"id":3,"name":"50L-1CR"},{"id":4,"name":"1CR-10CR"},{"id":5,"name":"10CR and above"}]
+    m_budget = [{"id":0,"name":"INR 0 Rupee(s)"},{"id":1000000,"name":"INR 10 Lakh(s)"},{"id":5000000,"name":"INR 50 Lakh(s)"},{"id":10000000,"name":"INR 1 Crore(s)"},{"id":100000000,"name":"INR 10 Crore(s)"},{"id":1000000000,"name":"INR 100 Crore(s)"}]
     # Get all data for list page
     for i in proposal_list:
         try:

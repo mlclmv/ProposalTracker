@@ -18,7 +18,7 @@ urlpatterns = [
     path("users/", include(profiles.urls)),
     path("admin/", admin.site.urls),
     path("", include(accounts.urls)),
-    path("",include(KYPSamhita.urls)),
+    path("governance/",include(KYPSamhita.urls)),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^select2/', include('django_select2.urls')),
 ]
