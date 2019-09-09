@@ -45,7 +45,10 @@ def proposal_doc_creation(sender, **kwargs):
         stage,created = ProposalStage.objects.get_or_create(name="Proposal sent/received",workflow__id=2,order=1,recurring=False)
         def_workflow = Workflow.objects.get(pk=1)
         def_stage = ProposalStage.objects.filter(workflow=def_workflow,order=1).first()
-        proposal_doc,created = ProposalDoc.objects.get_or_create(name="Proposal Document",proposal=proposal_obj,workflow__id=2,stage=stage)
+        if (ProposalDoc.objects.filter(name="Proposal Document",proposal=proposal_obj,stage=stage)):
+            print ("<Proposal Doc exists> : New Document creation aborted")
+        else:
+            proposal_doc,created = ProposalDoc.objects.get_or_create(name="Proposal Document",proposal=proposal_obj,workflow__id=2,stage=stage)
         mou_doc,created = ProposalDoc.objects.get_or_create(name="MoU signed",proposal=proposal_obj,stage=def_stage,workflow=def_workflow)
     except Exception as e:
         print ("<ProposalDocCreationError>",e)
