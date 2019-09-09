@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.conf.urls import *
 import profiles.urls
 import accounts.urls
-import KYPSamhita.urls
+import KYPSamhita.urls, KYPSamhita.views
 from . import views
 admin.autodiscover()
 # Personalized admin site settings like title and header
@@ -13,7 +13,8 @@ admin.site.site_title = "Appkyp Site Admin"
 admin.site.site_header = "Appkyp Administration"
 
 urlpatterns = [
-    path("", views.HomePage.as_view(), name="home"),
+    # path("", views.HomePage.as_view(), name="home"),
+    path("", KYPSamhita.views.ListingPage , name="home"),
     path("about/", views.AboutPage.as_view(), name="about"),
     path("users/", include(profiles.urls)),
     path("admin/", admin.site.urls),
