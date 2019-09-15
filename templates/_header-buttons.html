@@ -1,29 +1,32 @@
-
-{% load staticfiles %}
-
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-12 col-md-6 p-3 p-md-5">
-        <div class="col-12 p-0 px-md-5">
-          <a href="{% url 'kypsamhita:listing' %}" type="button" class="col-12 btn btn-default">Home</a>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 p-3 p-md-5">
-        <div class="col-12 p-0 px-md-5">
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-12 col-md-6 p-3 p-md-5">
+      <div class="col-12 p-0 px-md-5">
+        <a href="{% url 'kypsamhita:listing' %}" >
           <button type="button" class="col-12 btn btn-default">
-            <div class="row col-12 align-center a2a_kit a2a_kit_size_32 py-1" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{% url 'kypsamhita:proposal' proposal_slug=proposal.slug %}" data-a2a-title="{{proposal.name}}">
-                <span class="col-3 offset-md-4 offset-3 text-right">Share:</span>
-                <a class="a2a_button_whatsapp col-1 offset-1 offset-md-0"></a>
-                <a class="a2a_button_google_gmail col-1 ml-3 ml-md-3"></a>
-            </div>
-            <script>
-                var a2a_config = a2a_config || {};
-                a2a_config.onclick = 1;
-                a2a_config.num_services = 2;
-            </script>
-            <script async src="https://static.addtoany.com/menu/page.js"></script>
+              <div>Home</div>
           </button>
-        </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 p-3 p-md-5">
+      <div class="col-12 p-0 px-md-5">
+        <button type="button" class="col-12 btn btn-default">
+          <div class="row col-12 py-0" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{% url 'kypsamhita:proposal' proposal_slug=proposal.slug %}" data-a2a-title="{{proposal.name}}">
+              <div class="col-7 text-right">Share </div>
+              <div class="col-5 row a2a_kit a2a_kit_size_34 a2a_center">
+                <a class="a2a_button_whatsapp ml-3 ml-md-1"></a>
+                <a class="a2a_button_google_gmail ml-3 ml-md-3"></a>
+              </div>
+          </div>
+          <script>
+              var a2a_config = a2a_config || {};
+              a2a_config.onclick = 1;
+              a2a_config.num_services = 2;
+          </script>
+          <script async src="https://static.addtoany.com/menu/page.js"></script>
+        </button>
       </div>
     </div>
   </div>
+</div>

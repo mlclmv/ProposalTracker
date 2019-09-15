@@ -128,11 +128,13 @@
                         <div class="row mx-0 mx-md-5">
                             {% for k,v in org.items %}
                                 {% if k == prop.id %}
-                                    <h1 class="col-12 text-uppercase text-center">{{v}}</h1>
+                                    <h1 class="col-12 text-uppercase text-center">{{v}}
+                                        <a class="btn-collapse" title="Toggle card details" aria-expanded="false" data-toggle="collapse" data-target=".card{{prop.id}}"></a>
+                                    </h1>
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <div class="row col-12 p-0 mx-0 mx-md-0 mt-0 mt-md-0">
+                        <div class="row col-12 p-0 mx-0 mx-md-0 mt-0 mt-md-0 collapse card{{prop.id}}">
                             <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
                                 <div class="col-4">
                                     <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
@@ -269,7 +271,7 @@
                         </div>
                     </div>
                     {% comment %} Brief Description  {% endcomment %}
-                    <div class="col-md-12">
+                    <div class="col-md-12 collapse card{{prop.id}}">
                         <div class="row px-0 px-md-5">
                         <div class="col-12 col-md-12 px-0 px-md-0">
                             <span>
@@ -303,7 +305,7 @@
                         </div>
                     </div>
                     {% comment %} Card Buttons {% endcomment %}
-                    <div class="row col-md-12 mx-0 px-0 pt-5 pb-3">
+                    <div class="row col-md-12 mx-0 px-0 pt-5 pb-3 collapse card{{prop.id}}  ">
                         <div class="col-md-6 col-12 p-1 px-md-5">
                             {% for k,v in prop_details.items %}
                                 {% if k == prop.id %}
@@ -322,7 +324,7 @@
                                         {% if k == prop.id %}
                                             {% if v.slug and v.name %}
                                                 <div class="row col-12 align-center a2a_kit a2a_kit_size_32 py-1" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{% url 'kypsamhita:proposal' proposal_slug=v.slug %}" data-a2a-title="{{v.name}}">
-                                                    <span class="col-3 offset-md-4 offset-3 text-right">Share:</span>
+                                                    <span class="col-3 offset-md-4 offset-3 text-right">Share </span>
                                                     <a class="a2a_button_whatsapp col-1 offset-1 offset-md-0"></a>
                                                     <a class="a2a_button_google_gmail col-1 ml-3 ml-md-3"></a>
                                                 </div>

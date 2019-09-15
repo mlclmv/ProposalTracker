@@ -122,6 +122,24 @@ body {
     opacity: 0.5;
 }
 
+.btn-collapse[aria-expanded="false"]:after {
+    content: "\e06d";
+    font-family: 'Icons';
+    font-size: 1.75rem;
+    padding-bottom: 0.25rem;
+    color: #707070;
+    opacity: 0.5;
+}
+
+.btn-collapse[aria-expanded="true"]:after {
+    font-family: 'Icons';
+    content: "\e06e";
+    font-size: 1.75rem;
+    padding-bottom: 0.25rem;
+    color: #707070;
+    opacity: 0.5;
+}
+
 .progress   {
     font-size: 0.9rem;
 }
@@ -208,6 +226,12 @@ body {
     padding: 0rem 1rem;
     font-style: italic;
     color: #707070;
+}
+
+.a2a_center {
+    display: flex; 
+    justify-content: flex-start;
+    align-items: center;
 }
 
 @media only screen and (max-width: 768px) {
