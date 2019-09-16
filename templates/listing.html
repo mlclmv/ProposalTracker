@@ -350,7 +350,27 @@
     </div>
     {% endfor %}
     {% comment %} Card end {% endcomment %}
-    
+    {% comment %} Page Navigation Start {% endcomment %}
+    <div class="col-12 px-3 px-md-5">
+        <nav aria-label="Proposal Pagination">
+            <ul class="pagination pagination-lg justify-content-end">
+                {% if page.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; FIRST</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">PREVIOUS</a></li>
+                {% endif %}
+
+                <li class="page-item disabled">
+                    <a class="page-link" >PAGE {{ page.number }} OF {{ page.paginator.num_pages }}</a>
+                </li>
+
+                {% if page.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">NEXT</a></li>
+                <li class="page-item"><a class="page-link end-bar" href="?page={{ page.paginator.num_pages }}">LAST &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% comment %} Page Navigation Ends {% endcomment %}
 {% endblock %}
 
 {% block scripts %}

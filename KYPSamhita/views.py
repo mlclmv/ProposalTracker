@@ -3,6 +3,7 @@ from django.views import generic
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
 from . import models
@@ -203,15 +204,24 @@ def ListingPage(request):
         print ("<BudgetMaxException>", e)
     # Initialize other variables
     User = get_user_model()
-    proposal_list = Proposal.objects.filter((Q(name__icontains=search_text) | Q(organization__name__icontains=search_text) | Q(organization__org_type__name__icontains=search_text)\
+    proposal_list_all= Proposal.objects.filter((Q(name__icontains=search_text) | Q(organization__name__icontains=search_text) | Q(organization__org_type__name__icontains=search_text)\
                                             | Q(description__icontains=search_text) | Q(imp_partner__name__icontains=search_text)\
                                             | Q(spoc__name__icontains=search_text) | Q(service__name__icontains=search_text)\
                                             | Q(organization__cause_area__name__icontains=search_text) | Q(organization__partner_level__name__icontains=search_text)\
                                             | Q(organization__engagement_type__name__icontains=search_text) | Q(organization__head_name__icontains=search_text)\
                                             | Q(organization__location_state__name__icontains=search_text) | Q(organization__location_city__search_names__icontains=search_text)\
                                             | Q(organization__industry__name__icontains=search_text)),**get_filter).distinct()
+    paginator = Paginator(proposal_list_all,10)
+    try:
+        p_no = request.GET.get('page')
+        page = paginator.get_page(p_no)
+        proposal_list = page.object_list
+        print ("dict",p_no,proposal_list)
+    except:
+        p_no = 1
+        page = paginator.get_page(p_no)
+        proposal_list = page.object_list
     proposal_dict = list(proposal_list.values("id"))
-    print ("dict",proposal_dict)
     proposal = {}
     prop_details = {}
     org = {}
