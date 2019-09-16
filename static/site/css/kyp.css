@@ -123,21 +123,52 @@ body {
 }
 
 .btn-collapse[aria-expanded="false"]:after {
-    content: "\e06d";
+    content: "\e034";
     font-family: 'Icons';
     font-size: 1.75rem;
     padding-bottom: 0.25rem;
     color: #707070;
     opacity: 0.5;
+    cursor: pointer;
 }
 
 .btn-collapse[aria-expanded="true"]:after {
     font-family: 'Icons';
-    content: "\e06e";
+    content: "\e037";
     font-size: 1.75rem;
     padding-bottom: 0.25rem;
     color: #707070;
     opacity: 0.5;
+    align-content: center;
+    cursor: pointer;
+}
+
+.btn-adv[aria-expanded="false"]:after {
+    content: "\e034";
+    font-family: 'Icons';
+    font-size: 1rem;
+    padding-left: 0.5rem;
+    color: #707070;
+    opacity: 0.5;
+}
+
+.btn-adv[aria-expanded="true"]:after {
+    font-family: 'Icons';
+    content: "\e037";
+    font-size: 1rem;
+    padding-left: 0.25rem;
+    color: #707070;
+    opacity: 0.5;
+}
+
+.btn-adv {
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: #707070;
+    border: 1px solid;
+    border-color: #707070;
+    border-radius: 1.95rem;
+    text-align: center;
 }
 
 .progress   {

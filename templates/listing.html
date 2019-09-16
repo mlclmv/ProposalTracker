@@ -7,114 +7,119 @@
     {% comment %} Search and Filter Start {% endcomment %}
     <div class="py-3 px-3 px-md-5">
         <form id="filterForm" class="row" action="" method="POST">
-        {% csrf_token %}
-        <div class="col-12">
-            <div class="form-group mb-4">
-                <input id="partnerSearch" name="partnerSearch" type="text" placeholder="Search for your partners here" class="form-control form-control-underlined font-color-inactive p-2"  {% if search_text %} value="{{search_text}} "{% endif %}>
+            {% csrf_token %}
+            <div class="col-12">
+                <div class="row m-0 form-group mb-4">
+                    <input id="partnerSearch" name="partnerSearch" type="text" placeholder="Search for your partners here" class="col-12 col-md-11 form-control form-control-underlined font-color-inactive p-2"  {% if search_text %} value="{{search_text}} "{% endif %}>
+                    <div class="col-12 col-md-1 mt-3 mt-md-0 pt-0 pt-md-2 align-bottom btn-adv font-color-inactive" title="Advanced Filters" aria-expanded="false" data-toggle="collapse" data-target=".filterAdv">
+                        <span>Advanced</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-12 py-3">
-            <span class="h3 pb-0 pb-md-1 text-highlight">Partner</span>
-        </div>
-        <div class="row col-12 py-3">
-            <div class="col-6 col-md-2 py-3">
-                <select id="level" name="level" multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_partner_level %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
+            <div class="row p-0 m-0 filterAdv collapse">
+                <div class="col-12 py-3">
+                    <span class="h3 pb-0 pb-md-1 text-highlight">Partner</span>
+                </div>
+                <div class="row col-12 py-3">
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="level" name="level" multiple title="Level" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_partner_level %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="headquarter" name="headquarter" multiple title="Headquarter" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_city %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="industry" name="industry" multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_industry %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="risk" name="risk" multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_risk %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="service" name="service" multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_service %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="engagement" name="engagement" multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_type %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 py-3">
+                    <span class="h3 pb-0 pb-md-1 text-highlight">CSR</span>
+                </div>
+                <div class="row col-12 py-3">
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="budget_min" name="budget_min" title="Budget (Min)" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_budget %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="budget_max" name="budget_max" title="Budget (Max)" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_budget %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="location" name="location" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_city %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="cause" name="cause" multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_cause %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="spoc" name="spoc" multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_poc %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 py-3">
+                    <span class="h3 pb-0 pb-md-1 text-highlight">Status</span>
+                </div>
+                <div class="row col-12 py-3">
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="status" name="status" multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_status %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 py-3">
+                    <input type="submit" class="col-12 btn btn-default" value="Apply Filter" />
+                </div>
             </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="headquarter" name="headquarter" multiple title="Headquarter" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_city %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="industry" name="industry" multiple title="Industry" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_industry %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="risk" name="risk" multiple title="Risk" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_risk %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="service" name="service" multiple title="Offering" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_service %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="engagement" name="engagement" multiple title="Type" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_type %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="col-12 py-3">
-            <span class="h3 pb-0 pb-md-1 text-highlight">CSR</span>
-        </div>
-        <div class="row col-12 py-3">
-            <div class="col-6 col-md-2 py-3">
-                <select id="budget_min" name="budget_min" title="Budget (Min)" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_budget %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="budget_max" name="budget_max" title="Budget (Max)" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_budget %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="location" name="location" multiple title="Location" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_city %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="cause" name="cause" multiple title="Cause Area" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_cause %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-6 col-md-2 py-3">
-                <select id="spoc" name="spoc" multiple title="POC" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_poc %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="col-12 py-3">
-            <span class="h3 pb-0 pb-md-1 text-highlight">Status</span>
-        </div>
-        <div class="row col-12 py-3">
-            <div class="col-6 col-md-2 py-3">
-                <select id="status" name="status" multiple title="Status" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
-                    {% for key in m_status %}
-                        <option value={{key.id}}>{{key.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="col-12 py-3">
-            <input type="submit" class="col-12 btn btn-default" value="Apply Filter" />
-        </div>
         </form>
     </div>
     {% comment %} Search and Filter End {% endcomment %}
@@ -122,225 +127,224 @@
     {% for prop in proposal_dict %}
     <div class="col-12">
         <div class="row p-3 p-md-5">
-            <div class="col-12 col-md-12 py-3 default-card">
-                    {% comment %} Card Header Start{% endcomment %}
-                    <div class="col-md-12 p-0">
-                        <div class="row mx-0 mx-md-5">
-                            {% for k,v in org.items %}
-                                {% if k == prop.id %}
-                                    <h1 class="col-12 text-uppercase text-center">{{v}}
-                                        <a class="btn-collapse" title="Toggle card details" aria-expanded="false" data-toggle="collapse" data-target=".card{{prop.id}}"></a>
-                                    </h1>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="row col-12 p-0 mx-0 mx-md-0 mt-0 mt-md-0 collapse card{{prop.id}}">
-                            <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
-                                <div class="col-4">
-                                    <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
-                                </div>
-                                <div class="col-8 p-0 pt-md-5">
-                                    <div class="col-12">
-                                        <h4>Partnership Level</h4>
-                                    </div>
-                                    <div class="col-12">
-                                        {% for k,v in  partner_level.items %}
-                                            {% if k == prop.id %}
-                                                <h1>{{v}}</h1>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>   
-                                </div>
-                            </div>
-                            <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
-                                <div class="col-4">
-                                    <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
-                                </div>
-                                <div class="col-8 p-0 pt-md-5">
-                                    <div class="col-12">
-                                        <h4>Risk Assessment</h4>
-                                    </div>
-                                    <div class="col-12">
-                                        {% for k,v in  risk_level.items %}
-                                            {% if k == prop.id %}
-                                                <h1>{{v}}</h1>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>   
-                                </div>
-                            </div>
-                            <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
-                                <div class="col-4">
-                                    <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
-                                </div>
-                                <div class="col-8 p-0 pt-md-5">
-                                    <div class="col-12">
-                                        <h4>Services Offered/Pitched</h4>
-                                    </div>
-                                    <div class="col-12">
-                                        <h3>
-                                        {% for k,v in services_off.items %}
-                                            {% if k == prop.id %}
-                                                {% for service in v %}
-                                                {% if forloop.last %}
-                                                {{service}}
-                                                {% else %}
-                                                {{service}},
-                                                {% endif %}
-                                                {% empty %}
-                                                No Services Engaged
-                                                {% endfor %}
-                                            {% endif %}
-                                        {% endfor %}
-                                        </h3>
-                                    </div>   
-                                </div>
-                            </div>
-                        </div>
+            <div class="row col-12 col-md-12 m-0 py-3 default-card">
+                {% comment %} Card Header Start{% endcomment %}
+                <div class="col-md-12 p-0">
+                    <div class="row mx-0 mx-md-5">
+                        {% for k,v in org.items %}
+                            {% if k == prop.id %}
+                                <h1 class="col-12 text-uppercase text-center">{{v}}</h1>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                    {% comment %} Card Progress  {% endcomment %}
-                    <div class="col-md-12 p-md-0 p-3">
-                        <div class="row p-0 py-3 p-md-5">
-                        <div class="col-12 col-md-12 px-0 px-md-3 px-md-0 pt-3 pt-md-0">
-                            <div class="progress bg-status w-100" style="height: 3rem;">
-                            {% for k,v in kyp_comp.items %}
-                                {% if k == prop.id %}
-                                    {% if v == 100 %}
-                                        <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in prop_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v.doc %}
-                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in mou_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v.doc %}
-                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in projstart_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v and v.doc %}
-                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in projreport_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v and v.doc %}
-                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in impactreport_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v and v.doc %}
-                                        <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in finreview_file.items %}
-                                {% if k == prop.id %}
-                                    {% if v.doc %}
-                                        <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-                                    {% else %}
-                                        <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            </div> 
-                        </div>
-                        </div>
-                    </div>
-                    {% comment %} Brief Description  {% endcomment %}
-                    <div class="col-md-12 collapse card{{prop.id}}">
-                        <div class="row px-0 px-md-5">
-                        <div class="col-12 col-md-12 px-0 px-md-0">
-                            <span>
-                            {% for k,v in prop_details.items %}
-                                {% if k == prop.id %}
-                                    {% if v.description %}
-                                    <b>Proposal Description</b>
-                                    <br/>
-                                    {{v.description}}
-                                    <br/>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% for k,v in org.items %}
-                                {% if k == prop.id %}
-                                    {% if v.mkt_position %}
-                                    <b>Market Position</b>
-                                    <br/>
-                                    {{v.mkt_position}}
-                                    <br/>
-                                    {% endif %}
-                                    {% if v.risks %}
-                                    <b>Risks</b>
-                                    <br/>
-                                    {{v.risks}}
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            </span>
-                        </div>
-                        </div>
-                    </div>
-                    {% comment %} Card Buttons {% endcomment %}
-                    <div class="row col-md-12 mx-0 px-0 pt-5 pb-3 collapse card{{prop.id}}  ">
-                        <div class="col-md-6 col-12 p-1 px-md-5">
-                            {% for k,v in prop_details.items %}
-                                {% if k == prop.id %}
-                                    {% if v.slug %}
-                                        <a href="{% url 'kypsamhita:proposal' proposal_slug=v.slug %}">
-                                            <button type="button" class="col-12 btn btn-default">Read More</button>
-                                        </a>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="col-md-6 col-12 p-1 px-md-5 h-100">
-                            <button type="button" class="col-12 btn btn-default">
-                                <!-- AddToAny BEGIN -->
-                                    {% for k,v in prop_details.items %}
+                    <div class="row col-12 p-0 mx-0 mx-md-0 mt-0 mt-md-0 collapse card{{prop.id}}">
+                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                            <div class="col-4">
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
+                            </div>
+                            <div class="col-8 p-0 pt-md-5">
+                                <div class="col-12">
+                                    <h4>Partnership Level</h4>
+                                </div>
+                                <div class="col-12">
+                                    {% for k,v in  partner_level.items %}
                                         {% if k == prop.id %}
-                                            {% if v.slug and v.name %}
-                                                <div class="row col-12 align-center a2a_kit a2a_kit_size_32 py-1" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{% url 'kypsamhita:proposal' proposal_slug=v.slug %}" data-a2a-title="{{v.name}}">
-                                                    <span class="col-3 offset-md-4 offset-3 text-right">Share </span>
-                                                    <a class="a2a_button_whatsapp col-1 offset-1 offset-md-0"></a>
-                                                    <a class="a2a_button_google_gmail col-1 ml-3 ml-md-3"></a>
-                                                </div>
-                                            {% endif %}
+                                            <h1>{{v}}</h1>
                                         {% endif %}
                                     {% endfor %}
-                                    <script>
-                                        var a2a_config = a2a_config || {};
-                                        a2a_config.onclick = 1;
-                                        a2a_config.num_services = 2;
-                                    </script>
-                                    <script async src="https://static.addtoany.com/menu/page.js"></script>
-                                <!-- AddToAny END -->
-                            </button>
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                            <div class="col-4">
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
+                            </div>
+                            <div class="col-8 p-0 pt-md-5">
+                                <div class="col-12">
+                                    <h4>Risk Assessment</h4>
+                                </div>
+                                <div class="col-12">
+                                    {% for k,v in  risk_level.items %}
+                                        {% if k == prop.id %}
+                                            <h1>{{v}}</h1>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                            <div class="col-4">
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
+                            </div>
+                            <div class="col-8 p-0 pt-md-5">
+                                <div class="col-12">
+                                    <h4>Services Offered/Pitched</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h3>
+                                    {% for k,v in services_off.items %}
+                                        {% if k == prop.id %}
+                                            {% for service in v %}
+                                            {% if forloop.last %}
+                                            {{service}}
+                                            {% else %}
+                                            {{service}},
+                                            {% endif %}
+                                            {% empty %}
+                                            No Services Engaged
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </h3>
+                                </div>   
+                            </div>
                         </div>
                     </div>
+                </div>
+                {% comment %} Card Progress  {% endcomment %}
+                <div class="col-md-12 p-md-0 p-3">
+                    <div class="row p-0 py-3 p-md-5">
+                    <div class="col-12 col-md-12 px-0 px-md-3 px-md-0 pt-3 pt-md-0">
+                        <div class="progress bg-status w-100" style="height: 3rem;">
+                        {% for k,v in kyp_comp.items %}
+                            {% if k == prop.id %}
+                                {% if v == 100 %}
+                                    <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
+                                {% else %}
+                                    <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in prop_file.items %}
+                            {% if k == prop.id %}
+                                {% if v.doc %}
+                                    <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
+                                {% else %}
+                                    <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in mou_file.items %}
+                            {% if k == prop.id %}
+                                {% if v.doc %}
+                                    <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{v.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
+                                {% else %}
+                                    <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in projstart_file.items %}
+                            {% if k == prop.id %}
+                                {% if v and v.doc %}
+                                    <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
+                                {% else %}
+                                    <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in projreport_file.items %}
+                            {% if k == prop.id %}
+                                {% if v and v.doc %}
+                                    <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+                                {% else %}
+                                    <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in impactreport_file.items %}
+                            {% if k == prop.id %}
+                                {% if v and v.doc %}
+                                    <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+                                {% else %}
+                                    <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in finreview_file.items %}
+                            {% if k == prop.id %}
+                                {% if v.doc %}
+                                    <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+                                {% else %}
+                                    <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </div> 
+                    </div>
+                    </div>
+                </div>
+                {% comment %} Brief Description  {% endcomment %}
+                <div class="col-md-12 collapse card{{prop.id}}">
+                    <div class="row px-0 px-md-5">
+                    <div class="col-12 col-md-12 px-0 px-md-0">
+                        <span>
+                        {% for k,v in prop_details.items %}
+                            {% if k == prop.id %}
+                                {% if v.description %}
+                                <b>Proposal Description</b>
+                                <br/>
+                                {{v.description}}
+                                <br/>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in org.items %}
+                            {% if k == prop.id %}
+                                {% if v.mkt_position %}
+                                <b>Market Position</b>
+                                <br/>
+                                {{v.mkt_position}}
+                                <br/>
+                                {% endif %}
+                                {% if v.risks %}
+                                <b>Risks</b>
+                                <br/>
+                                {{v.risks}}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        </span>
+                    </div>
+                    </div>
+                </div>
+                {% comment %} Card Buttons {% endcomment %}
+                <div class="row col-md-12 mx-0 px-0 pt-5 pb-3 collapse card{{prop.id}}  ">
+                    <div class="col-md-6 col-12 p-1 px-md-5">
+                        {% for k,v in prop_details.items %}
+                            {% if k == prop.id %}
+                                {% if v.slug %}
+                                    <a href="{% url 'kypsamhita:proposal' proposal_slug=v.slug %}">
+                                        <button type="button" class="col-12 btn btn-default">Read More</button>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 col-12 p-1 px-md-5 h-100">
+                        <button type="button" class="col-12 btn btn-default">
+                            <!-- AddToAny BEGIN -->
+                                {% for k,v in prop_details.items %}
+                                    {% if k == prop.id %}
+                                        {% if v.slug and v.name %}
+                                            <div class="row col-12 align-center a2a_kit a2a_kit_size_32 py-1" data-a2a-url="{{ request.scheme }}://{{ request.get_host }}{% url 'kypsamhita:proposal' proposal_slug=v.slug %}" data-a2a-title="{{v.name}}">
+                                                <span class="col-3 offset-md-4 offset-3 text-right">Share </span>
+                                                <a class="a2a_button_whatsapp col-1 offset-1 offset-md-0"></a>
+                                                <a class="a2a_button_google_gmail col-1 ml-3 ml-md-3"></a>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                <script>
+                                    var a2a_config = a2a_config || {};
+                                    a2a_config.onclick = 1;
+                                    a2a_config.num_services = 2;
+                                </script>
+                                <script async src="https://static.addtoany.com/menu/page.js"></script>
+                            <!-- AddToAny END -->
+                        </button>
+                    </div>
+                </div>
+                <a class="col-12 text-center p-0 btn-collapse" title="Toggle card details" aria-expanded="false" data-toggle="collapse" data-target=".card{{prop.id}}"></a>
             </div>
         </div>
     </div>
