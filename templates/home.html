@@ -7,12 +7,12 @@
   {% comment %} Buttons bar {% endcomment %}
   {% include "_header-buttons.html" %}
   {% comment %} Card Header {% endcomment %}
-  <div class="col-md-12">
-    <div class="row mx-5">
+  <div class="col-md-12 p-0">
+    <div class="row mx-0 mx-md-5 mt-3 mt-md-0">
       <h1 class="col-12 text-uppercase text-center">{{org}}</h1>
     </div>
     <div class="row col-12 mx-0 mx-md-5 mt-0 mt-md-5">
-      <div class="row col-12 col-md-4">
+      <div class="row col-12 col-md-4 m-0 mx-md-n4 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
         </div>
@@ -25,7 +25,7 @@
           </div>   
         </div>
       </div>
-      <div class="row col-12 col-md-4">
+      <div class="row col-12 col-md-4 m-0 mx-md-n3 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
         </div>
@@ -38,7 +38,7 @@
           </div>   
         </div>
       </div>
-      <div class="row col-12 col-md-4">
+      <div class="row col-12 col-md-4 m-0 mx-md-n4 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
         </div>
@@ -65,7 +65,7 @@
   </div>
   {% comment %} Card Progress  {% endcomment %}
   <div class="col-md-12">
-    <div class="row p-5">
+    <div class="row p-0 p-md-5">
       <div class="col-12 col-md-12 px-3 px-md-5 pt-3 pt-md-5">
         <div class="progress bg-status w-100" style="height: 3rem;">
           {% if kyp_comp == 100 %}
@@ -109,7 +109,7 @@
   </div>
   {% comment %} Brief Description  {% endcomment %}
   <div class="col-md-12">
-    <div class="row px-5">
+    <div class="row px-0 py-3 py-md-0 px-md-5">
       <div class="col-12 col-md-12 px-3 px-md-5">
         <span>
           {% if proposal.description %}
@@ -135,7 +135,7 @@
   </div>
   {% comment %} KYP details and CSR Priorities {% endcomment %}
   <div class="col-md-12">
-    <div class="row p-5">
+    <div class="row px-0 px-md-5">
       <div class="col-12 col-md-12 p-3 p-md-5">
         <div class="col-12 col-md-12 default-card py-3">
           <div class="row col-12 col-md-12">
@@ -284,7 +284,7 @@
   </div>
   {% comment %} Prechecks Prior to engagement {% endcomment %}
   <div class="col-md-12">
-    <div class="row px-5">
+    <div class="row px-0 px-md-5">
       <div class="col-12 col-md-12 px-3 px-md-5">
         <div class="col-12 col-md-12 default-card py-3">
           <div class="row col-12 col-md-12">
@@ -450,7 +450,7 @@
   </div>
   {% comment %} Components of Good Governance {% endcomment %}
   <div class="col-md-12 pt-5">
-    <div class="row px-5">
+    <div class="row px-0 px-md-5">
       <div class="col-12 col-md-12 px-3 px-md-5">
         <div class="col-12 col-md-12 default-card pr-md-3 pr-0 py-3">
           <div class="row col-12 col-md-12 pr-md-3 pr-0">
