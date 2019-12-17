@@ -45,7 +45,7 @@ class SignUpView(
     def form_valid(self, form):
         r = super().form_valid(form)
         username = form.cleaned_data["email"]
-        password = form.cleaned_data["password1"]
+        password = form.cleaned_data["password"]
         user = auth.authenticate(email=username, password=password)
         auth.login(self.request, user)
         return r
