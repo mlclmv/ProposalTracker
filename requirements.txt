@@ -15,7 +15,7 @@
 #defusedxml==0.6.0
 #devscripts===2.16.2ubuntu3
 #diff-match-patch==20181111
-Django==2.0.9
+Django==2.2.10
 django-appconf==1.0.3
 django-authtools==1.6.0
 django-autoslug-iplweb==1.9.4.dev0
