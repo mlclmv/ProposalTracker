@@ -131,9 +131,14 @@
                 {% comment %} Card Header Start{% endcomment %}
                 <div class="col-md-12 p-0">
                     <div class="row mx-0 mx-md-5">
-                        {% for k,v in org.items %}
+                        {% for k,v in prop_details.items %}
                             {% if k == prop.id %}
-                                <h1 class="col-12 text-uppercase text-center">{{v}}</h1>
+                                <h1 class="col-12 text-uppercase text-center">{{v.name}}</h1>
+                            {% endif %}
+                        {% endfor %}
+                        {% for k,v in org.items %}
+                            {% if k == prop.id and v %}
+                                <small class="col-12 text-uppercase text-center">Entity: {{v}}</small>
                             {% endif %}
                         {% endfor %}
                     </div>
