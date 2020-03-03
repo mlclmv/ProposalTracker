@@ -39,7 +39,7 @@ class SignUpView(
     form_class = forms.SignupForm
     model = User
     template_name = "accounts/signup.html"
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("admin:index")
     form_valid_message = "You're signed up!"
 
     def form_valid(self, form):
