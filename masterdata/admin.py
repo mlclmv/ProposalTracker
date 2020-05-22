@@ -1,43 +1,62 @@
 from django.contrib import admin
 from .models import (CauseArea,Industry,OrganizationType,ProposalStage,
-Service,Workflow,EngagementType,Department,Question,PartnershipLevel,RiskLevel)
-from import_export.admin import ImportExportModelAdmin
+Service,Workflow,EngagementType,Department,Question,PartnershipLevel,RiskLevel,BudgetCategory,CostCategory)
+from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 
 # Register your models here.
-class CauseAreaAdmin(ImportExportModelAdmin):
+class CauseAreaAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name",)
 
-class IndustryAdmin(ImportExportModelAdmin):
+class IndustryAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name",)
 
-class OrgTypeAdmin(ImportExportModelAdmin):
+class OrgTypeAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name",)
 
-class EngageTypeAdmin(ImportExportModelAdmin):
+class EngageTypeAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name","description")
 
-class WorkFlowAdmin(ImportExportModelAdmin):
+class WorkFlowAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name",)
 
-class PropStageAdmin(ImportExportModelAdmin):
+class PropStageAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     filter_horizontal = ("dependency",)
     list_display = ("id","name","workflow","order","recurring")
 
-class ServiceAdmin(ImportExportModelAdmin):
+class ServiceAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     filter_horizontal = ("department",)
     list_display = ("id","name",)
 
-class DeptAdmin(ImportExportModelAdmin):
+class DeptAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name")
 
-class QuestionAdmin(ImportExportModelAdmin):
+class QuestionAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","question","order")
 
-class PartnerLevelAdmin(ImportExportModelAdmin):
+class PartnerLevelAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name","description")
 
-class RiskLevelAdmin(ImportExportModelAdmin):
+class RiskLevelAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("id","name","description")
+
+class BudgetCategoryAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
+    list_display = ("id","name","description")
+
+class CostCategoryAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
+    list_display = ("id","name","budget_category")
 
 admin.site.register(CauseArea,CauseAreaAdmin)
 admin.site.register(Industry,IndustryAdmin)
@@ -50,3 +69,5 @@ admin.site.register(Department,DeptAdmin)
 admin.site.register(Question,QuestionAdmin)
 admin.site.register(PartnershipLevel,PartnerLevelAdmin)
 admin.site.register(RiskLevel,RiskLevelAdmin)
+admin.site.register(BudgetCategory,BudgetCategoryAdmin)
+admin.site.register(CostCategory,CostCategoryAdmin)

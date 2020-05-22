@@ -2,6 +2,7 @@
 
 html, body{
     height:100%;		/* For full height images */
+    font-size: 12px !important;
 }
 
 .starter-template {

@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     "profiles",
     "accounts",
     "organization",
+    "financedata",
     "service",
     "program",
     "masterdata",

@@ -120,3 +120,24 @@ class RiskLevel(models.Model):
 
     def __str__(self):
         return self.name or ''
+
+class BudgetCategory(models.Model):
+    name = models.CharField(unique=True,max_length=200)
+    description = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name or ''
+
+    def __str__(self):
+        return self.name or ''
+
+class CostCategory(models.Model):
+    name = models.CharField(unique=True,max_length=200)
+    description = models.TextField(blank=True, null=True)
+    budget_category = models.ForeignKey(BudgetCategory,verbose_name="Budget Category",on_delete=models.PROTECT,blank=True,null=True,related_name="financecategory_fk")
+
+    def __unicode__(self):
+        return self.name or ''
+
+    def __str__(self):
+        return self.name or ''

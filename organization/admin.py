@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Profile, StrategyChecklist, StructureChecklist, ProcessPracticeChecklist, PeopleChecklist
 from program.models import ProgramInfo
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 # Register your models here.
 
 class StrategyInlineAdmin(admin.StackedInline):
@@ -43,23 +43,23 @@ class ProgramInlineAdmin(admin.StackedInline):
     extra = 1
     max_num = 1
 
-class ProfileAdmin(ImportExportModelAdmin):
+class ProfileAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     filter_horizontal = ('office_location','location_state','location_city','industry','partners','cause_area','engagement_type')
     list_display = ("name","head_name","spoc_name")
     inlines = (StrategyInlineAdmin,StructureInlineAdmin,ProcessPracticeInlineAdmin,PeopleInlineAdmin,ProgramInlineAdmin)
     class Meta:
         model = Profile
 
-class StrategyCLAdmin(ImportExportModelAdmin):
+class StrategyCLAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     list_display = ("organization","q1","q2","q3")
 
-class StructureCLAdmin(ImportExportModelAdmin):
+class StructureCLAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     list_display = ("organization","q1","q2","q3")
 
-class ProcessPracticeCLAdmin(ImportExportModelAdmin):
+class ProcessPracticeCLAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     list_display = ("organization","q1","q2","q3")
 
-class PeopleCLAdmin(ImportExportModelAdmin):
+class PeopleCLAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     list_display = ("organization","q1","q2","q3")
 
 admin.site.register(Profile,ProfileAdmin)

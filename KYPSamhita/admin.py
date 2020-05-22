@@ -1,8 +1,11 @@
 from django.contrib import admin
 from .models import Proposal, ProposalDoc
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 from cities_light.models import City,Region
 from cities_light.admin import RegionAdmin,CityAdmin
+from financedata.models import InternalCost,SubisdiaryDisbursement
+from KYPSamhita.models import Profile
+from django.forms import ModelForm
 # Register your models here.
 
 class PDInlineAdmin(admin.TabularInline):
@@ -11,20 +14,42 @@ class PDInlineAdmin(admin.TabularInline):
     list_display = ("proposal","name","date","doc")
     extra = 1
 
-class ProposalAdmin(ImportExportModelAdmin):
-    filter_horizontal = ('service','imp_partner')
+
+class ICInlineForm(ModelForm):
+  def __init__(self, *args, **kwargs):
+    internal_company_list = ['Samhita Social Ventures','Collective Good Foundation']
+    super(ICInlineForm, self).__init__(*args, **kwargs)
+    self.fields['entity'].queryset = Profile.objects.filter(name__in=internal_company_list)
+                 
+class ICInlineAdmin(admin.TabularInline):
+    form = ICInlineForm
+    model = InternalCost
+    fields = ("entity","cost","cost_category","rate","nos","unit","total_amount")
+    list_display = ("entity","cost","cost_category","total_amount")
+    extra = 1
+class SDInlineAdmin(admin.TabularInline):
+    model = SubisdiaryDisbursement
+    raw_id_fields = ("subsidiary",)
+    fields = ("subsidiary","cost","cost_category","rate","nos","unit","total_amount")
+    list_display = ("subsidiary","cost","cost_category","total_amount")
+    extra = 1
+
+class ProposalAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
+    filter_horizontal = ("service","imp_partner")
     list_display = ("name","organization","spoc")
-    inlines = (PDInlineAdmin,)
+    inlines = (ICInlineAdmin,SDInlineAdmin,PDInlineAdmin)
     class Meta:
         model = Proposal
     
-class ProposalDocAdmin(ImportExportModelAdmin):
+class ProposalDocAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
     list_display = ("name","date","doc","proposal","stage")
 
-class StateAdmin(ImportExportModelAdmin):
+class StateAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     pass
 
-class RegionCityAdmin(ImportExportModelAdmin):
+class RegionCityAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     pass
 
 admin.site.register(ProposalDoc,ProposalDocAdmin)

@@ -5,7 +5,7 @@ from .models import Profile
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.html import format_html
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 
 User = get_user_model()
 
@@ -14,7 +14,7 @@ class UserProfileInline(admin.StackedInline):
     model = Profile
 
 
-class NewUserAdmin(NamedUserAdmin,ImportExportModelAdmin):
+class NewUserAdmin(NamedUserAdmin,ImportExportModelAdmin,ImportExportActionModelAdmin):
     inlines = [UserProfileInline]
     list_display = (
         "is_active",
