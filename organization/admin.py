@@ -44,6 +44,7 @@ class ProgramInlineAdmin(admin.StackedInline):
     max_num = 1
 
 class ProfileAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name","org_type__name","industry__name","location_city__name","location_state__name","spoc_name")
     filter_horizontal = ('office_location','location_state','location_city','industry','partners','cause_area','engagement_type')
     list_display = ("name","head_name","spoc_name")
     inlines = (StrategyInlineAdmin,StructureInlineAdmin,ProcessPracticeInlineAdmin,PeopleInlineAdmin,ProgramInlineAdmin)
