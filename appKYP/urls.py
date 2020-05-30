@@ -6,6 +6,7 @@ from django.conf.urls import *
 import profiles.urls
 import accounts.urls
 import KYPSamhita.urls, KYPSamhita.views
+import financedata.urls
 from . import views
 admin.autodiscover()
 # Personalized admin site settings like title and header
@@ -20,6 +21,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(accounts.urls)),
     path("governance/",include(KYPSamhita.urls)),
+    path("finance/",include(financedata.urls)),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^select2/', include('django_select2.urls')),
 ]

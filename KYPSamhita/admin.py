@@ -3,7 +3,7 @@ from .models import Proposal, ProposalDoc
 from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 from cities_light.models import City,Region
 from cities_light.admin import RegionAdmin,CityAdmin
-from financedata.models import InternalCost,SubisdiaryDisbursement
+from financedata.models import InternalCost,SubsidiaryDisbursement
 from KYPSamhita.models import Profile
 from django.forms import ModelForm
 # Register your models here.
@@ -28,7 +28,7 @@ class ICInlineAdmin(admin.TabularInline):
     list_display = ("entity","cost","cost_category","total_amount")
     extra = 1
 class SDInlineAdmin(admin.TabularInline):
-    model = SubisdiaryDisbursement
+    model = SubsidiaryDisbursement
     raw_id_fields = ("subsidiary",)
     fields = ("subsidiary","cost","cost_category","rate","nos","unit","total_amount")
     list_display = ("subsidiary","cost","cost_category","total_amount")

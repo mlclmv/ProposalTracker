@@ -10,10 +10,19 @@ from . import models
 from KYPSamhita.models import Proposal,ProposalDoc
 from program.models import ProgramInfo
 from masterdata.models import *
+from financedata.models import InternalCost,SubsidiaryDisbursement
 from organization.models import Profile,StrategyChecklist,StructureChecklist,ProcessPracticeChecklist,PeopleChecklist
 from django.http import JsonResponse
 from cities_light.models import City
 from django.contrib.auth import get_user_model
+
+def getICListing(prop_id):
+    ic_obj = InternalCost.objects.filter(proposal__id = prop_id)
+    return ic_obj
+
+def getSDListing(prop_id):
+    sd_obj = SubsidiaryDisbursement.objects.filter(proposal__id = prop_id)
+    return sd_obj
 
 def ProposalPage(request,proposal_slug):
     proposal = ""
@@ -42,9 +51,17 @@ def ProposalPage(request,proposal_slug):
                     try:
                         programs = ProgramInfo.objects.filter(organization=org)
                     except:
-                        programs = None                    
+                        programs = None                   
             except Exception as e:
                 print ('<OrgNameError>: ',e)
+            try:
+                ic_list = getICListing(proposal.id)
+            except Exception as e:
+                print ('<ICListingError>',e) 
+            try:
+                sd_list = getSDListing(proposal.id)
+            except Exception as e:
+                print ('<SDListingError>',e) 
             try:
                 services_off = proposal.service.all()
             except Exception as e:

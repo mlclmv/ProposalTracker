@@ -12,7 +12,7 @@ class InternalCost(models.Model):
     cost = models.CharField(default="General",max_length=200)
     cost_category = models.ForeignKey(CostCategory,verbose_name="Cost Category",on_delete=models.PROTECT,blank=True,null=True,related_name="costcategory_fk")
     rate = models.PositiveIntegerField("Cost Rate/Value", blank=True, null=True)
-    nos = models.PositiveIntegerField("Nos.",default=1, blank=True, null=True)
+    nos = models.PositiveIntegerField("No. of units",default=1, blank=True, null=True)
     unit = models.CharField(default="nos.",max_length=200,blank=True, null=True)
     total_amount = models.PositiveIntegerField("Total Amount", default=0)
     proposal = models.ForeignKey(Proposal,on_delete=models.PROTECT,related_name="intcost_proposal",blank=True, null=True)
@@ -23,7 +23,7 @@ class InternalCost(models.Model):
     def __str__(self):
         return self.cost or ''
 
-class SubisdiaryDisbursement(models.Model):
+class SubsidiaryDisbursement(models.Model):
     subsidiary = models.ForeignKey(Profile,verbose_name="Subsidiary Organization",on_delete=models.PROTECT,blank=True,null=True,related_name="subsidiary_fk")
     cost = models.CharField(default="General",max_length=200)
     cost_category = models.ForeignKey(CostCategory,verbose_name="Cost Category",default=1,on_delete=models.PROTECT,blank=True,null=True,related_name="subsidiary_costcategory_fk")

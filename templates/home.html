@@ -12,8 +12,8 @@
       <h1 class="col-12 text-uppercase text-center">{{proposal.name}}</h1>
       <small class="col-12 text-uppercase text-center">Entity: {{org}}</small>
     </div>
-    <div class="row col-12 mx-0 mx-md-5 mt-0 mt-md-5">
-      <div class="row col-12 col-md-4 m-0 mx-md-n4 p-0 px-md-4 py-3 py-md-0 divider-sm">
+    <div class="row col-12 mx-0 mx-md-0 mt-0 mt-md-5">
+      <div class="row col-12 col-md-4 m-0 mx-md-2 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
         </div>
@@ -137,7 +137,7 @@
   {% comment %} KYP details and CSR Priorities {% endcomment %}
   <div class="col-md-12">
     <div class="row px-0 px-md-5">
-      <div class="col-12 col-md-12 p-3 p-md-5">
+      <div class="col-12 col-md-12 p-3 px-md-5 pt-md-5 pb-md-0">
         <div class="col-12 col-md-12 default-card py-3">
           <div class="row col-12 col-md-12">
             <div class="col-12 col-md-5 px-1 px-md-1">
@@ -283,6 +283,15 @@
       </div>
     </div>
   </div>
+  
+  {% comment %} Internal Costing  {% endcomment %}
+    {% include "_internalcost.html" %}
+  {% comment %} Internal Costing  {% endcomment %}
+
+  {% comment %} Subsidiary Disbursement  {% endcomment %}
+    {% include "_subsidiarydisbursement.html" %}
+  {% comment %} Subsidiary Disbursement  {% endcomment %}
+
   {% comment %} Prechecks Prior to engagement {% endcomment %}
   <div class="col-md-12">
     <div class="row px-0 px-md-5">

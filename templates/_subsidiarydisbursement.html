@@ -1,0 +1,49 @@
+  <div class="col-md-12">
+    <div class="row px-0 px-md-5">
+      <div class="col-12 col-md-12 p-3 px-md-5 pb-md-5 pt-md-0">
+        <div class="col-12 col-md-12 default-card py-3">
+          <div class="row col-12 col-md-12">
+            <div class="col-12 col-md-12 px-1 px-md-1">
+              <div class="row h-100">
+                  <div class="col-12">
+                    <span class="h1 pb-0 pb-md-0 text-highlight">Subsidiary Disbursement</span>
+                  </div>
+                  <div class="col-12 mt-2 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="border-top-0" scope="col">Subsidiary</th>
+                                <th class="border-top-0" scope="col">Item details</th>
+                                <th class="border-top-0" scope="col">Category</th>
+                                <th class="border-top-0" scope="col">Rate</th>
+                                <th class="border-top-0" scope="col">No. of units</th>
+                                <th class="border-top-0" scope="col">Unit</th>
+                                <th class="border-top-0" scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        {% if sd_list.all %}
+                        <tbody>
+                            {% for item in sd_list.all %}
+                            
+                            <tr>
+                                <td>{{item.subsidiary}}</td>
+                                <td>{{item.cost}}</td>
+                                <td>{{item.cost_category}}</td>
+                                <td>{{item.rate}}</td>
+                                <td>{{item.unit}}</td>
+                                <td>{{item.nos}}</td>
+                                <td>{{item.total_amount}}</td>
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                    </table>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

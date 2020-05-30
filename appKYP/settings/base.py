@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     "import_export",
     "django_select2",
     "social_django",
+    "funky_sheets",
 )
 
 MIDDLEWARE = [
@@ -162,3 +163,4 @@ SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy("admin:index")
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "660032502343-fn01vmc341e8er5cr9feqhr19q2n5kb4.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "pK0hIFb2O71Jjx5OgyQDlEL_"
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
+INTERNAL_COMPANIES = ['Samhita Social Ventures','Collective Good Foundation']
