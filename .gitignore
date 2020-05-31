@@ -12,3 +12,5 @@ db.sqlite3
 **/static/admin
 **/static/debug_toolbar
 media/**
+### settings/base.py ###
+**/settings/base.py

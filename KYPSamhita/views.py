@@ -152,6 +152,7 @@ def ProposalPage(request,proposal_slug):
 
 def ListingPage(request):
     # Get POST data and initialize variables
+    print('<Listing page>',request)
     form_data = {'partnerSearch':[], 'csrfmiddlewaretoken': []}
     search_text = ""
     get_filter = dict()
@@ -227,7 +228,7 @@ def ListingPage(request):
                                             | Q(organization__cause_area__name__icontains=search_text) | Q(organization__partner_level__name__icontains=search_text)\
                                             | Q(organization__engagement_type__name__icontains=search_text) | Q(organization__head_name__icontains=search_text)\
                                             | Q(organization__location_state__name__icontains=search_text) | Q(organization__location_city__search_names__icontains=search_text)\
-                                            | Q(organization__industry__name__icontains=search_text)),**get_filter).distinct()
+                                            | Q(organization__industry__name__icontains=search_text)),**get_filter).distinct().order_by("-id")
     paginator = Paginator(proposal_list_all,10)
     try:
         p_no = request.GET.get('page')
