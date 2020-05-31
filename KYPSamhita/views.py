@@ -75,7 +75,7 @@ def ProposalPage(request,proposal_slug):
             except Exception as e:
                 print ('<PropDocError>: ',e)
             try:
-                prop_file = ProposalDoc.objects.get(stage__name="Proposal sent/received",proposal=proposal)
+                prop_file = ProposalDoc.objects.filter(stage__name="Proposal sent/received",proposal=proposal).first()
                 if prop_file.doc:
                     prop_sent = True
             except Exception as e:
