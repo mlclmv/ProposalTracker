@@ -1,6 +1,8 @@
+
+  {% if sd_list.all %}  
   <div class="col-md-12">
     <div class="row px-0 px-md-5">
-      <div class="col-12 col-md-12 p-3 px-md-5 pb-md-5 pt-md-0">
+      <div class="col-12 col-md-12 p-3 px-md-5 pt-md-0 pb-md-5">
         <div class="col-12 col-md-12 default-card py-3">
           <div class="row col-12 col-md-12">
             <div class="col-12 col-md-12 px-1 px-md-1">
@@ -21,7 +23,6 @@
                                 <th class="border-top-0" scope="col">Total</th>
                             </tr>
                         </thead>
-                        {% if sd_list.all %}
                         <tbody>
                             {% for item in sd_list.all %}
                             
@@ -37,7 +38,6 @@
 
                             {% endfor %}
                         </tbody>
-                        {% endif %}
                     </table>
                   </div>
               </div>
@@ -47,3 +47,4 @@
       </div>
     </div>
   </div>
+  {% endif %}
