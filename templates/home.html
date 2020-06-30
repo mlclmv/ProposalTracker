@@ -65,49 +65,7 @@
     </div>
   </div>
   {% comment %} Card Progress  {% endcomment %}
-  <div class="col-md-12">
-    <div class="row p-0 p-md-5">
-      <div class="col-12 col-md-12 px-3 px-md-5 pt-3 pt-md-5">
-        <div class="progress bg-status w-100" style="height: 3rem;">
-          {% if kyp_comp == 100 %}
-            <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
-          {% else %}
-            <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
-          {% endif %}
-          {% if prop_sent %}
-            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{prop_file.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
-          {% else %}
-            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
-          {% endif %}
-          {% if mou_signed %}
-            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{mou_file.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
-          {% else %}
-            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
-          {% endif %}
-          {% if projstart %}
-            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
-          {% else %}
-            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
-          {% endif %}
-          {% if projreport %}
-            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-          {% else %}
-            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
-          {% endif %}
-          {% if impactreport %}
-            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-          {% else %}
-            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
-          {% endif %}
-          {% if finreview %}
-            <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-          {% else %}
-            <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
-          {% endif %}
-        </div> 
-      </div>
-    </div>
-  </div>
+  {% include "_homeworkflow.html" %}
   {% comment %} Brief Description  {% endcomment %}
   <div class="col-md-12">
     <div class="row px-0 py-3 py-md-0 px-md-5">
@@ -473,18 +431,22 @@
                     <div class="col-12 col-md-6 card-split-right">
                       <div class="row mt-3 card-checks">
                         <span class="col-12 h3 pb-1">{{stage.name}}</span>
-                        <div class="col-12 col-md-6 mb-5 card-split-right">
-                          <span class="h5 pb-1">Objectives</span>
-                            <ul class="custom-bullet font-color-inactive "> 
-                              {{stage.objective | safe}}
-                            </ul>
-                        </div>
-                        <div class="col-12 col-md-6 mb-5">
-                          <span class="h5 pb-1">Good Practices</span>
-                            <ul class="custom-bullet font-color-inactive ">
-                              {{stage.good_practice | safe}}
-                            </ul>
-                        </div>
+                        {% if stage.objective %}
+                          <div class="col-12 col-md-6 mb-5 card-split-right">
+                            <span class="h5 pb-1">Objectives</span>
+                              <ul class="custom-bullet font-color-inactive "> 
+                                {{stage.objective | safe}}
+                              </ul>
+                          </div>
+                        {% endif %}
+                        {% if stage.good_practice %}
+                          <div class="col-12 col-md-6 mb-5">
+                            <span class="h5 pb-1">Good Practices</span>
+                              <ul class="custom-bullet font-color-inactive ">
+                                {{stage.good_practice | safe}}
+                              </ul>
+                          </div>
+                        {% endif %}
                       </div>
                     </div>
                   <div class="col-12 col-md-6">

@@ -1,0 +1,43 @@
+<div class="col-md-12">
+    <div class="row p-0 p-md-5">
+      <div class="col-12 col-md-12 px-3 px-md-5 pt-3 pt-md-5">
+        <div class="progress bg-status w-100" style="height: 3rem;">
+          {% if kyp_comp == 100 %}
+            <div class="progress-bar bg-default start-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">KYP complete</div>
+          {% else %}
+            <div class="progress-bar bg-default start-bar font-primary" title="KYP {{kyp_comp}}% complete" role="progressbar" style="width: 13.5%" aria-valuenow="{{kyp_comp}}" aria-valuemin="0" aria-valuemax="100">KYP pending</div>
+          {% endif %}
+          {% if prop_sent %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{prop_file.doc.url}}">Proposal sent/received <br/><u>Download</u></a></div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Proposal pending</div>
+          {% endif %}
+          {% if mou_signed %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 19%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><a href ="{{mou_file.doc.url}}">MoU Signed <br/><u>Download</u></a></div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 19%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">MoU pending</div>
+          {% endif %}
+          {% if projstart %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Partnership Kicked off</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Kick off pending</div>
+          {% endif %}
+          {% if projreport %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Project Review</div>
+          {% endif %}
+          {% if impactreport %}
+            <div class="progress-bar bg-default bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+          {% else %}
+            <div class="progress-bar bg-default font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Impact Review</div>
+          {% endif %}
+          {% if finreview %}
+            <div class="progress-bar bg-default end-bar bg-fin" role="progressbar" style="width: 13.5%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+          {% else %}
+            <div class="progress-bar bg-default end-bar font-primary" role="progressbar" style="width: 13.5%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Financial Review</div>
+          {% endif %}
+        </div> 
+      </div>
+    </div>
+</div>

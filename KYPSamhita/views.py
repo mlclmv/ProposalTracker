@@ -67,11 +67,11 @@ def ProposalPage(request,proposal_slug):
             except Exception as e:
                 print ('<ServiceOffError>: ',e)
             try:
-                proposal_stages = ProposalStage.objects.filter(workflow__name="Good Governance").order_by("order")
+                proposal_stages = ProposalStage.objects.filter(workflow=proposal.workflow).order_by("order")
             except Exception as e:
                 print ('<PropStageError>: ',e)
             try:
-                proposal_docs = ProposalDoc.objects.filter(workflow__name="Good Governance",proposal=proposal).order_by("date","modified_date")
+                proposal_docs = ProposalDoc.objects.filter(workflow=proposal.workflow,proposal=proposal).order_by("date","modified_date")
             except Exception as e:
                 print ('<PropDocError>: ',e)
             try:
@@ -81,31 +81,31 @@ def ProposalPage(request,proposal_slug):
             except Exception as e:
                 print ('<PropSentError>: ',e)
             try:
-                mou_file = ProposalDoc.objects.filter(name__icontains="mou",workflow__name="Good Governance",proposal=proposal).order_by("date","modified_date").first()
+                mou_file = ProposalDoc.objects.filter(name__icontains="mou",workflow=proposal.workflow,proposal=proposal).order_by("date","modified_date").first()
                 if mou_file.doc:
                     mou_signed = True
             except Exception as e:
                 print ('<PropDocError>: ',e)
             try:
-                projstart_file = ProposalDoc.objects.filter((Q(name__icontains="mom")|Q(name__icontains="minutes")), workflow__name="Good Governance",proposal=proposal).first()
+                projstart_file = ProposalDoc.objects.filter((Q(name__icontains="mom")|Q(name__icontains="minutes")), workflow=proposal.workflow,proposal=proposal).first()
                 if projstart_file.doc:
                     projstart = True
             except Exception as e:
                 print ('<ProjStartError>: ',e)
             try:
-                projreport_file = ProposalDoc.objects.filter((Q(name__icontains="monthly")|Q(name__icontains="quarterly")|Q(name__icontains="report")|Q(name__icontains="reports")), workflow__name="Good Governance",stage__order=2,proposal=proposal).first()
+                projreport_file = ProposalDoc.objects.filter((Q(name__icontains="monthly")|Q(name__icontains="quarterly")|Q(name__icontains="report")|Q(name__icontains="reports")), workflow=proposal.workflow,stage__order=2,proposal=proposal).first()
                 if projreport_file.doc:
                     projreport = True
             except Exception as e:
                 print ('<ProjReportError>: ',e)
             try:
-                impactreport_file = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=3,proposal=proposal).first()
+                impactreport_file = ProposalDoc.objects.filter(workflow=proposal.workflow,stage__order=3,proposal=proposal).first()
                 if impactreport_file.doc:
                     impactreport = True
             except Exception as e:
                 print ('<ImpactReportError>: ',e)
             try:
-                finreview_file = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=4,proposal=proposal).first()
+                finreview_file = ProposalDoc.objects.filter(workflow=proposal.workflow,stage__order=4,proposal=proposal).first()
                 if finreview_file.doc:
                     finreview = True
             except Exception as e:
@@ -253,6 +253,8 @@ def ListingPage(request):
     projreport_file = {}
     impactreport_file = {}
     finreview_file = {}
+    prop_stages = {}
+    curr_stages = {}
     m_partner_level = PartnershipLevel.objects.all()
     m_city = City.objects.all()
     m_industry = Industry.objects.all()
@@ -291,25 +293,34 @@ def ListingPage(request):
                 except Exception as e:
                     print ('<PropSentError>: ',e)
                 try:
-                    mou_file[i.id] = ProposalDoc.objects.filter(name__icontains="mou",workflow__name="Good Governance",proposal=proposal).order_by("-date","-modified_date").first()
+                    mou_file[i.id] = ProposalDoc.objects.filter(name__icontains="mou",workflow=proposal.workflow,proposal=proposal).order_by("-date","-modified_date").first()
                 except Exception as e:
                     print ('<PropDocError>: ',e)
                 try:
-                    projstart_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="mom")|Q(name__icontains="minutes")), workflow__name="Good Governance",proposal=proposal).first()
+                    projstart_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="mom")|Q(name__icontains="minutes")), workflow=proposal.workflow,proposal=proposal).first()
                 except Exception as e:
                     print ('<ProjStartError>: ',e)
                 try:
-                    projreport_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="monthly")|Q(name__icontains="quarterly")|Q(name__icontains="report")|Q(name__icontains="reports")), workflow__name="Good Governance",stage__order=2,proposal=proposal).first()
+                    projreport_file[i.id] = ProposalDoc.objects.filter((Q(name__icontains="monthly")|Q(name__icontains="quarterly")|Q(name__icontains="report")|Q(name__icontains="reports")), workflow=proposal.workflow,stage__order=2,proposal=proposal).first()
                 except Exception as e:
                     print ('<ProjReportError>: ',e)
                 try:
-                    impactreport_file[i.id] = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=3,proposal=proposal).first()
+                    impactreport_file[i.id] = ProposalDoc.objects.filter(workflow=proposal.workflow,stage__order=3,proposal=proposal).first()
                 except Exception as e:
                     print ('<ImpactReportError>: ',e)
                 try:
-                    finreview_file[i.id] = ProposalDoc.objects.filter(workflow__name="Good Governance",stage__order=4,proposal=proposal).first()
+                    finreview_file[i.id] = ProposalDoc.objects.filter(workflow=proposal.workflow,stage__order=4,proposal=proposal).first()
                 except Exception as e:
                     print ('<FinReportError>: ',e)
+                # Get proposal workflow and stages 
+                try:
+                    prop_stages[i.id] = ProposalStage.objects.filter(workflow=proposal.workflow).order_by("order")
+                except Exception as e:
+                    print ('<PropStageError>: ',e)
+                try:
+                    curr_stages[i.id] = i.stage
+                except Exception as e:
+                    print ('<CurrStageError>: ',e)
         except:
             proposal = ""
         # Get Strategy Questions

@@ -16,6 +16,8 @@ class Proposal(models.Model):
     imp_partner =  models.ManyToManyField(Profile, blank=True,related_name="imp_partner",help_text="Pick Implementation Partner")
     spoc = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT, blank=True, null=True,help_text="Proposal Handler")
     slug = models.SlugField(unique=True,null=True,blank=True)
+    workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,related_name="prop_workflow",blank=True, null=True,default=1)
+    stage = models.ForeignKey(ProposalStage,verbose_name='Current Stage',on_delete=models.PROTECT,related_name="prop_stage",blank=True, null=True)
 
     def __unicode__(self):
         return self.name or ''
@@ -38,20 +40,20 @@ class Proposal(models.Model):
         super().save(*args, **kwargs)
 
 # Signal to create Proposal document on Proposal creation
-@receiver(post_save, sender=Proposal)
-def proposal_doc_creation(sender, **kwargs):
-    proposal_obj = kwargs['instance']
-    try:
-        stage,created = ProposalStage.objects.get_or_create(name="Proposal sent/received",workflow__id=2,order=1,recurring=False)
-        def_workflow = Workflow.objects.get(pk=1)
-        def_stage = ProposalStage.objects.filter(workflow=def_workflow,order=1).first()
-        if (ProposalDoc.objects.filter(name="Proposal Document",proposal=proposal_obj,stage=stage)):
-            print ("<Proposal Doc exists> : New Document creation aborted")
-        else:
-            proposal_doc,created = ProposalDoc.objects.get_or_create(name="Proposal Document",proposal=proposal_obj,workflow__id=2,stage=stage)
-        mou_doc,created = ProposalDoc.objects.get_or_create(name="MoU signed",proposal=proposal_obj,stage=def_stage,workflow=def_workflow)
-    except Exception as e:
-        print ("<ProposalDocCreationError>",e)
+# @receiver(post_save, sender=Proposal)
+# def proposal_doc_creation(sender, **kwargs):
+#     proposal_obj = kwargs['instance']
+#     try:
+#         stage,created = ProposalStage.objects.get_or_create(name="Proposal sent/received",workflow__id=2,order=1,recurring=False)
+#         def_workflow = Workflow.objects.get(pk=1)
+#         def_stage = ProposalStage.objects.filter(workflow=def_workflow,order=1).first()
+#         if (ProposalDoc.objects.filter(name="Proposal Document",proposal=proposal_obj,stage=stage)):
+#             print ("<Proposal Doc exists> : New Document creation aborted")
+#         else:
+#             proposal_doc,created = ProposalDoc.objects.get_or_create(name="Proposal Document",proposal=proposal_obj,workflow__id=2,stage=stage)
+#         mou_doc,created = ProposalDoc.objects.get_or_create(name="MoU signed",proposal=proposal_obj,stage=def_stage,workflow=def_workflow)
+#     except Exception as e:
+#         print ("<ProposalDocCreationError>",e)
 
 class ProposalDoc(models.Model):
     modified_date = models.DateTimeField(auto_now=True)

@@ -50,6 +50,9 @@ class ProposalStage(models.Model):
     recurring = models.BooleanField(choices=settings.BOOL_CHOICES,verbose_name="Recurring Output?",blank=True,default=False)
     dependency = models.ManyToManyField('self',blank=True,related_name="dependency",verbose_name="Dependencies(if any)")
 
+    class Meta:
+        ordering = ['workflow__id','order']
+
     def __unicode__(self):
         return self.name or ''
 
