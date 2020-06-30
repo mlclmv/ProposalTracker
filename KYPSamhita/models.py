@@ -4,11 +4,12 @@ from django.conf import settings
 from django.dispatch import Signal, receiver
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
-from masterdata.models import ProposalStage, Service, Workflow
+from masterdata.models import ProposalStage, Service, Workflow, ProposalStatus
 from organization.models import Profile
 
 class Proposal(models.Model):
     name = models.CharField(unique=True,max_length=200)
+    status = models.ForeignKey(ProposalStatus,on_delete=models.PROTECT,related_name="prop_status",blank=True, null=True,default=1)
     description = models.TextField(blank=True, null=True)
     organization = models.ForeignKey(Profile,on_delete=models.SET_NULL,related_name="org",blank=True, null=True)
     value = models.PositiveIntegerField("Budget/Value of Proposal", blank=True, null=True)

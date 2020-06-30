@@ -206,10 +206,13 @@ def ListingPage(request):
     except Exception as e:
         print ("<SearchTextException>", e)
     try:
-        status_id = ProposalDoc.objects.filter(stage__id__in=form_data['status']).values_list('proposal__id',flat=True).distinct()
-        get_filter['id__in'] = list(status_id)
+        get_filter['status__in'] = form_data['status']
     except Exception as e:
         print ("<StatusException>", e)
+    try:
+        get_filter['stage__in'] = form_data['stage']
+    except Exception as e:
+        print ("<StageException>", e)
     try:
         budget_min = int(request.POST.get("budget_min",""))
         get_filter['organization__csr_budget__gte'] = budget_min
@@ -263,7 +266,8 @@ def ListingPage(request):
     m_type = EngagementType.objects.all()
     m_cause = CauseArea.objects.all()
     m_poc = User.objects.all()
-    m_status = ProposalStage.objects.all()
+    m_status = ProposalStatus.objects.all()
+    m_stage = ProposalStage.objects.all()
     m_budget = [{"id":0,"name":"INR 0 Rupee(s)"},{"id":1000000,"name":"INR 10 Lakh(s)"},{"id":5000000,"name":"INR 50 Lakh(s)"},{"id":10000000,"name":"INR 1 Crore(s)"},{"id":100000000,"name":"INR 10 Crore(s)"},{"id":1000000000,"name":"INR 100 Crore(s)"}]
     # Get all data for list page
     for i in proposal_list:

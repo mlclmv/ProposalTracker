@@ -115,6 +115,13 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <div class="col-6 col-md-2 py-3">
+                        <select id="stage" name="stage" multiple title="Current Stage" data-style="bg-white btn-default rounded-pill px-4 py-3 shadow-sm " class="selectpicker w-100">
+                            {% for key in m_stage %}
+                                <option value={{key.id}}>{{key.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
                 <div class="col-12 py-3">
                     <input type="submit" class="col-12 btn btn-default" value="Apply Filter" />
@@ -143,7 +150,7 @@
                         {% endfor %}
                     </div>
                     <div class="row col-12 p-0 mx-0 mx-md-0 mt-0 mt-md-0 collapse card{{prop.id}}">
-                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                        <div class="row col-12 col-md-3 m-0 p-0 py-3 py-md-0 divider-sm">
                             <div class="col-4">
                                 <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
                             </div>
@@ -160,7 +167,24 @@
                                 </div>   
                             </div>
                         </div>
-                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                        <div class="row col-12 col-md-3 m-0 p-0 py-3 py-md-0 divider-sm">
+                            <div class="col-4">
+                                <img class="img-fluid img-contain h-100" src="{% static 'site/img/status.png' %}"/>  
+                            </div>
+                            <div class="col-8 p-0 pt-md-5">
+                                <div class="col-12">
+                                    <h4>Status</h4>
+                                </div>
+                                <div class="col-12">
+                                    {% for k,v in  prop_details.items %}
+                                        {% if k == prop.id %}
+                                            <h1>{{v.status}}</h1>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="row col-12 col-md-3 m-0 p-0 py-3 py-md-0 divider-sm">
                             <div class="col-4">
                                 <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
                             </div>
@@ -177,7 +201,7 @@
                                 </div>   
                             </div>
                         </div>
-                        <div class="row col-12 col-md-4 m-0 p-0 py-3 py-md-0 divider-sm">
+                        <div class="row col-12 col-md-3 m-0 p-0 py-3 py-md-0 divider-sm">
                             <div class="col-4">
                                 <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
                             </div>
@@ -350,6 +374,9 @@
             {% endif %}
             {% if form_data.status %}
                 $('#status').val({{form_data.status|safe}})
+            {% endif %}
+            {% if form_data.stage %}
+                $('#stage').val({{form_data.stage|safe}})
             {% endif %}
         }
         catch(e){

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (CauseArea,Industry,OrganizationType,ProposalStage,
-Service,Workflow,EngagementType,Department,Question,PartnershipLevel,RiskLevel,BudgetCategory,CostCategory)
+Service,Workflow,EngagementType,Department,Question,PartnershipLevel,RiskLevel,BudgetCategory,CostCategory,ProposalStatus)
 from import_export.admin import ImportExportModelAdmin,ImportExportActionModelAdmin
 
 # Register your models here.
@@ -58,6 +58,10 @@ class CostCategoryAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     search_fields = ("name",)
     list_display = ("id","name","budget_category")
 
+class PropStatusAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
+    search_fields = ("name",)
+    list_display = ("id","name","description")
+
 admin.site.register(CauseArea,CauseAreaAdmin)
 admin.site.register(Industry,IndustryAdmin)
 admin.site.register(OrganizationType,OrgTypeAdmin)
@@ -71,3 +75,4 @@ admin.site.register(PartnershipLevel,PartnerLevelAdmin)
 admin.site.register(RiskLevel,RiskLevelAdmin)
 admin.site.register(BudgetCategory,BudgetCategoryAdmin)
 admin.site.register(CostCategory,CostCategoryAdmin)
+admin.site.register(ProposalStatus,PropStatusAdmin)
