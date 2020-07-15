@@ -12,8 +12,8 @@
       <h1 class="col-12 text-uppercase text-center">{{proposal.name}}</h1>
       <small class="col-12 text-uppercase text-center">Entity: {{org}}</small>
     </div>
-    <div class="row col-12 mx-0 mx-md-0 mt-0 mt-md-5">
-      <div class="row col-12 col-md-4 m-0 mx-md-2 p-0 px-md-4 py-3 py-md-0 divider-sm">
+    <div class="row col-12 mx-0 mx-md-0 mt-0 mt-md-5 pl-md-5">
+      <div class="row col-12 col-md-3 m-0 mx-md-0 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/gold.png' %}"/>  
         </div>
@@ -26,7 +26,20 @@
           </div>   
         </div>
       </div>
-      <div class="row col-12 col-md-4 m-0 mx-md-n3 p-0 px-md-4 py-3 py-md-0 divider-sm">
+      <div class="row col-12 col-md-3 m-0 mx-md-n1 p-0 px-md-4 py-3 py-md-0 divider-sm">
+        <div class="col-4">
+          <img class="img-fluid img-contain h-100" src="{% static 'site/img/status.png' %}"/>  
+        </div>
+        <div class="col-8 p-0 pt-md-5">
+          <div class="col-12">
+            <h4>Status</h4>
+          </div>
+          <div class="col-12">
+            <h1>{{proposal.status}}</h1>
+          </div>   
+        </div>
+      </div>
+      <div class="row col-12 col-md-3 m-0 mx-md-n1 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/risk.png' %}"/>  
         </div>
@@ -39,7 +52,7 @@
           </div>   
         </div>
       </div>
-      <div class="row col-12 col-md-4 m-0 mx-md-n4 p-0 px-md-4 py-3 py-md-0 divider-sm">
+      <div class="row col-12 col-md-3 m-0 mx-md-0 p-0 px-md-4 py-3 py-md-0 divider-sm">
         <div class="col-4">
           <img class="img-fluid img-contain h-100" src="{% static 'site/img/service.png' %}"/>  
         </div>
