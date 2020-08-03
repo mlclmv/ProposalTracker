@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -24,6 +24,7 @@ def getSDListing(prop_id):
     sd_obj = SubsidiaryDisbursement.objects.filter(proposal__id = prop_id)
     return sd_obj
 
+@login_required
 def ProposalPage(request,proposal_slug):
     proposal = ""
     org = ""
@@ -150,6 +151,7 @@ def ProposalPage(request,proposal_slug):
         print ('<KYPcompError>',e)
     return render(request,'../templates/home.html',locals())
 
+@login_required
 def ListingPage(request):
     # Get POST data and initialize variables
     print('<Listing page>',request)

@@ -17,15 +17,15 @@ class LoginForm(AuthenticationForm):
         self.fields["username"].widget.input_type = "email"  # ugly hack
 
         self.helper.layout = Layout(
-            Field("username", placeholder="Enter Email", autofocus=""),
-            Field("password", placeholder="Enter Password"),
+            Field("username", css_class="form-control rounded-pill form-control-underlined font-color-inactive p-2 pl-3", placeholder="Enter Email", autofocus=""),
+            Field("password", css_class="form-control rounded-pill form-control-underlined font-color-inactive p-2 pl-3", placeholder="Enter Password"),
             HTML(
                 '<a href="{}">Forgot Password?</a>'.format(
                     reverse("accounts:password-reset")
                 )
             ),
             Field("remember_me"),
-            Submit("sign_in", "Log in", css_class="btn btn-lg btn-primary btn-block"),
+            Submit("sign_in", "Log in", css_class="btn border-0 btn-lg col-12 btn-other rounded-pill shadow-sm"),
         )
 
 

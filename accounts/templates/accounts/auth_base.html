@@ -6,12 +6,16 @@
 {% endblock %}
 
 {% block container %}
-<div class="container form-box">
-  <div class="text-center">
-    <h2>{% block form_heading %}{% endblock %}</h2>
+<div class="container form-box col-md-12 py-5">
+  <div class="card col-md-3 px-0 mx-auto text-center">
+    <div class="card-header">
+      <h3>{% block form_heading %}{% endblock %}</h3>
+    </div>
+    <div class="card-body">
+      {% block form %}
+      {% endblock %}
+    </div>
   </div>
-  {% block form %}
-  {% endblock %}
 </div>
 
 {% endblock container %}

@@ -2,15 +2,16 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}{{ block.super }}Log In{% endblock %}
+{% block title %}{{ block.super }} Log In {% endblock %}
 
-{% block form_heading %}Please Log In{% endblock %}
+{% block form_heading %} Governance Portal Login{% endblock %}
 
 {% block form %}
   {% crispy form %}
 
   <div class="col-md-12 text-center">
-    <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    <h5 class="col-md-12 pb-2">OR</h5>
+    <a class="loginBtn loginBtn--google btn btn-primary border-0 btn-lg col-12 btn-other rounded-pill shadow-sm" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
   </div>
   <div class="form-message">
     <p>
