@@ -260,6 +260,7 @@ def ListingPage(request):
     finreview_file = {}
     prop_stages = {}
     curr_stages = {}
+    curr_status = {}
     m_partner_level = PartnershipLevel.objects.all()
     m_city = City.objects.all()
     m_industry = Industry.objects.all()
@@ -327,6 +328,10 @@ def ListingPage(request):
                     curr_stages[i.id] = i.stage
                 except Exception as e:
                     print ('<CurrStageError>: ',e)
+                try:
+                    curr_status[i.id] = i.status
+                except Exception as e:
+                    print ('<CurrStatusError>: ',e)
         except:
             proposal = ""
         # Get Strategy Questions

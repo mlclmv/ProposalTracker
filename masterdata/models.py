@@ -3,6 +3,7 @@ from django.utils.encoding import python_2_unicode_compatible
 import uuid
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 class Industry(models.Model):
     name = models.CharField(unique=True,max_length=200)
@@ -148,6 +149,13 @@ class CostCategory(models.Model):
 class ProposalStatus(models.Model):
     name = models.CharField(unique=True,max_length=200)
     description = models.TextField(blank=True, null=True)
+    order = models.PositiveSmallIntegerField(blank=True, null=True)
+    parent = models.ForeignKey('self', null=True, blank=True, default=None, on_delete=models.CASCADE)
+    cancel_dependency = models.ManyToManyField('self',blank=True,related_name="cancel_dependency",verbose_name="Negate this status if active")
+
+    def clean(self):
+        if self.parent == self:
+            raise ValidationError("A status can't be its own parent")
 
     def __unicode__(self):
         return self.name or ''
