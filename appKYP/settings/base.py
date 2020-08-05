@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     "django_select2",
     "social_django",
     "funky_sheets",
+    "simple_history",
 )
 
 MIDDLEWARE = [
@@ -96,7 +97,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "social_django.middleware.SocialAuthExceptionMiddleware"
+    "social_django.middleware.SocialAuthExceptionMiddleware",
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "appKYP.urls"
@@ -164,3 +166,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "660032502343-fn01vmc341e8er5cr9feqhr19q2n5kb4.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "pK0hIFb2O71Jjx5OgyQDlEL_"
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
 INTERNAL_COMPANIES = ['Samhita Social Ventures','Collective Good Foundation']
+SIMPLE_HISTORY_EDIT = False

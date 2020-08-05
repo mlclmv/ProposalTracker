@@ -6,6 +6,8 @@ from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from masterdata.models import ProposalStage, Service, Workflow, ProposalStatus
 from organization.models import Profile
+from simple_history.models import HistoricalRecords
+
 
 class Proposal(models.Model):
     name = models.CharField(unique=True,max_length=200)
@@ -19,6 +21,7 @@ class Proposal(models.Model):
     slug = models.SlugField(unique=True,null=True,blank=True)
     workflow = models.ForeignKey(Workflow,on_delete=models.PROTECT,related_name="prop_workflow",blank=True, null=True,default=1)
     stage = models.ForeignKey(ProposalStage,verbose_name='Current Stage',on_delete=models.PROTECT,related_name="prop_stage",blank=True, null=True)
+    history = HistoricalRecords()
 
     def __unicode__(self):
         return self.name or ''
@@ -39,6 +42,13 @@ class Proposal(models.Model):
         if not self.slug:
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
+
+    def modified_date(self):
+        try:
+            modified_datetime = self.history.last().history_date
+        except:
+            modified_datetime = None
+        return modified_datetime
 
 # Signal to create Proposal document on Proposal creation
 # @receiver(post_save, sender=Proposal)
