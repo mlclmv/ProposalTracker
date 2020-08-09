@@ -273,7 +273,7 @@ def ListingPage(request):
     m_type = EngagementType.objects.all()
     m_cause = CauseArea.objects.all()
     m_poc = User.objects.all()
-    m_status = ProposalStatus.objects.all()
+    m_status = ProposalStatus.objects.all().order_by('order')
     m_stage = ProposalStage.objects.all()
     m_budget = [{"id":0,"name":"INR 0 Rupee(s)"},{"id":1000000,"name":"INR 10 Lakh(s)"},{"id":5000000,"name":"INR 50 Lakh(s)"},{"id":10000000,"name":"INR 1 Crore(s)"},{"id":100000000,"name":"INR 10 Crore(s)"},{"id":1000000000,"name":"INR 100 Crore(s)"}]
     # Get all data for list page
