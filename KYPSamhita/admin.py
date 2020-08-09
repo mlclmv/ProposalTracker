@@ -6,7 +6,7 @@ from cities_light.admin import RegionAdmin,CityAdmin
 from financedata.models import InternalCost,SubsidiaryDisbursement
 from KYPSamhita.models import Profile
 from django.forms import ModelForm
-from simple_history.admin import SimpleHistoryAdmin
+# from simple_history.admin import SimpleHistoryAdmin
 # Register your models here.
 
 class PDInlineAdmin(admin.TabularInline):
@@ -35,7 +35,7 @@ class SDInlineAdmin(admin.TabularInline):
     list_display = ("subsidiary","cost","cost_category","total_amount")
     extra = 1
 
-class ProposalAdmin(SimpleHistoryAdmin,ImportExportModelAdmin,ImportExportActionModelAdmin):
+class ProposalAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     search_fields = ("name",)
     filter_horizontal = ("service","imp_partner")
     list_display = ("name","organization","status","value","spoc",)
@@ -43,6 +43,13 @@ class ProposalAdmin(SimpleHistoryAdmin,ImportExportModelAdmin,ImportExportAction
     inlines = (ICInlineAdmin,SDInlineAdmin,PDInlineAdmin)
     class Meta:
         model = Proposal
+    
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = []
+        if not request.user.is_superuser:
+            self.exclude.append('workflow')
+            self.exclude.append('stage')
+        return super(ProposalAdmin, self).get_form(request, obj, **kwargs)
     
 class ProposalDocAdmin(ImportExportModelAdmin,ImportExportActionModelAdmin):
     search_fields = ("name",)
