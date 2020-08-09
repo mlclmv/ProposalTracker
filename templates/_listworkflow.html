@@ -8,35 +8,15 @@
                 {% if not cs == None %}
                     {% if i == cs or not i.parent %}
                         {% if not cs in i.cancel_dependency.all %}
-                            {% if forloop.first %}
-                                {% if cs.order >= i.order %}
-                                    <div class="progress-bar bg-default start-bar bg-fin col" title="{{i.name}} complete" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% else %}
-                                    <div class="progress-bar bg-default start-bar font-primary col" title="{{i.name}} status" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% endif %}
-                            {% elif forloop.last %}
-                                {% if cs.order >= i.order %}
-                                    <div class="progress-bar bg-default end-bar bg-fin col" title="{{i.name}} complete" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% else %}
-                                    <div class="progress-bar bg-default end-bar font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% endif %}
+                            {% if cs.order >= i.order %}
+                                <div class="progress-bar bg-default bg-fin col" style="background-color:{{cs.color}}" title="{{i.name}} complete" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
                             {% else %}
-                                {% if cs.order >= i.order %}
-                                    <div class="progress-bar bg-default bg-fin col" title="{{i.name}} complete" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% else %}
-                                    <div class="progress-bar bg-default font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                                {% endif %}
+                                <div class="progress-bar bg-default font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
                             {% endif %}
                         {% endif %}
                     {% endif %}
                 {% else %}
-                        {% if forloop.first %}
-                            <div class="progress-bar bg-default start-bar font-primary col" title="{{i.name}} status" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                        {% elif forloop.last %}
-                            <div class="progress-bar bg-default end-bar font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                        {% else %}
-                            <div class="progress-bar bg-default font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
-                        {% endif %}
+                    <div class="progress-bar bg-default font-primary col" title="{{i.name}} status" role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{i.name}}</div>
                 {% endif %}
             {% endfor %}
         {% endwith %}

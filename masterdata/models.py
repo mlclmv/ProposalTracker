@@ -152,6 +152,7 @@ class ProposalStatus(models.Model):
     order = models.PositiveSmallIntegerField(blank=True, null=True)
     parent = models.ForeignKey('self', null=True, blank=True, default=None, on_delete=models.CASCADE)
     cancel_dependency = models.ManyToManyField('self',blank=True,related_name="cancel_dependency",verbose_name="Negate this status if active")
+    color = models.CharField(max_length=20,default="#12af0a")
 
     def clean(self):
         if self.parent == self:

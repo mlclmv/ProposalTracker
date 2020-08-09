@@ -38,7 +38,7 @@ class SDInlineAdmin(admin.TabularInline):
 class ProposalAdmin(SimpleHistoryAdmin,ImportExportModelAdmin,ImportExportActionModelAdmin):
     search_fields = ("name",)
     filter_horizontal = ("service","imp_partner")
-    list_display = ("name","modified_date","organization","status","value","spoc",)
+    list_display = ("name","organization","status","value","spoc",)
     list_editable = ("organization","status","value","spoc",)
     inlines = (ICInlineAdmin,SDInlineAdmin,PDInlineAdmin)
     class Meta:

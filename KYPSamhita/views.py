@@ -72,6 +72,10 @@ def ProposalPage(request,proposal_slug):
             except Exception as e:
                 print ('<PropStageError>: ',e)
             try:
+                proposal_status = ProposalStatus.objects.all().order_by("order")
+            except Exception as e:
+                print ('<PropStageError>: ',e)
+            try:
                 proposal_docs = ProposalDoc.objects.filter(workflow=proposal.workflow,proposal=proposal).order_by("date","modified_date")
             except Exception as e:
                 print ('<PropDocError>: ',e)

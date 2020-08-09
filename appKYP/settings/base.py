@@ -86,7 +86,7 @@ INSTALLED_APPS = (
     "django_select2",
     "social_django",
     "funky_sheets",
-    "simple_history",
+    # "simple_history",
 )
 
 MIDDLEWARE = [
@@ -98,7 +98,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
-    'simple_history.middleware.HistoryRequestMiddleware',
+    # 'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "appKYP.urls"
