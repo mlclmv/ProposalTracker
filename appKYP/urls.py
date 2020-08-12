@@ -24,6 +24,7 @@ urlpatterns = [
     path("finance/",include(financedata.urls)),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^select2/', include('django_select2.urls')),
+    url(r'^explorer/', include('explorer.urls')),
 ]
 
 # User-uploaded files like profile pics need to be served in development

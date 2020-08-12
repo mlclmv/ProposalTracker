@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     "django_select2",
     "social_django",
     "funky_sheets",
+    "explorer",
     # "simple_history",
 )
 
@@ -166,4 +167,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "660032502343-fn01vmc341e8er5cr9feqhr19q2n5kb4.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "pK0hIFb2O71Jjx5OgyQDlEL_"
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
 INTERNAL_COMPANIES = ['Samhita Social Ventures','Collective Good Foundation']
+EXPLORER_CONNECTIONS = { 'default': 'default' }
+EXPLORER_DEFAULT_CONNECTION = 'default'
 SIMPLE_HISTORY_EDIT = False
